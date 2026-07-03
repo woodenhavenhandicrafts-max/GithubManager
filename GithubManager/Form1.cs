@@ -45,6 +45,7 @@ namespace GithubManager
                 _social = new GitHubSocialManager(token, _username);
                 _tracker = new FollowTracker(_username);
                 _keepList = new KeepList(_username);
+                _neverFollow = new NeverFollowList(_username);
 
                 Text = $"GitHub Manager - {_username}";
                 lblStatus.Text = $"Logged in as {_username}";
@@ -120,6 +121,7 @@ namespace GithubManager
                 _username = current.Login;
                 _tracker = new FollowTracker(_username);
                 _keepList = new KeepList(_username);
+                _neverFollow = new NeverFollowList(_username);
 
                 Text = $"GitHub Manager - {_username}";
                 lblStatus.Text = $"Logged in as {_username}";
@@ -156,6 +158,8 @@ namespace GithubManager
         private List<Octokit.User> _notFollowingBack = new();
         private List<Octokit.User> _notFollowedYet = new();
         private KeepList _keepList;
+        private NeverFollowList _neverFollow;
+        private readonly ListViewDaySorter _diffSorter = new();
 
         private async void btnLoadDiff_Click(object sender, EventArgs e)
         {
@@ -195,15 +199,37 @@ namespace GithubManager
                 lvKeepList.Items.Add(item);
             }
 
-            // Filter keep list out of doesnt-follow-back
+            // Populate never follow list
+            lvNeverFollow.Items.Clear();
+            foreach (var login in _neverFollow.All.OrderBy(l => l))
+                lvNeverFollow.Items.Add(new System.Windows.Forms.ListViewItem(login));
+
+            // Wire sorter once
+            if (lvNotFollowingBack.ListViewItemSorter == null)
+            {
+                lvNotFollowingBack.ListViewItemSorter = _diffSorter;
+                lvNotFollowingBack.ColumnClick += (s, e) =>
+                {
+                    _diffSorter.SetColumn(e.Column);
+                    lvNotFollowingBack.Sort();
+                };
+            }
+
+            // Filter keep list and never follow list out of doesnt-follow-back
             foreach (var u in _notFollowingBack)
             {
                 if (_keepList.Contains(u.Login)) continue;
+                if (_neverFollow.Contains(u.Login)) continue;
+                int days = _tracker?.DaysFollowing(u.Login) ?? int.MaxValue;
                 var age = _tracker?.FormatAge(u.Login) ?? "unknown";
-                var item = new System.Windows.Forms.ListViewItem(u.Login) { Checked = false };
+                var item = new System.Windows.Forms.ListViewItem(u.Login) { Checked = false, Tag = days };
                 item.SubItems.Add(age);
                 lvNotFollowingBack.Items.Add(item);
             }
+
+            // Default sort: most days first (who's been ignoring you longest)
+            _diffSorter.SetColumn(1);
+            lvNotFollowingBack.Sort();
 
             foreach (var u in _notFollowedYet)
             {
@@ -260,7 +286,6 @@ namespace GithubManager
                 _keepList.Remove(i.Text);
                 lvKeepList.Items.Remove(i);
 
-                // Add back to not-following-back list if they still don't follow back
                 var user = _notFollowingBack.FirstOrDefault(u => u.Login == i.Text);
                 if (user != null)
                 {
@@ -269,6 +294,45 @@ namespace GithubManager
                     item.SubItems.Add(age);
                     lvNotFollowingBack.Items.Add(item);
                 }
+            }
+        }
+
+        private async void btnAddToNeverFollow_Click(object sender, EventArgs e)
+        {
+            var selected = lvNotFollowingBack.Items.Cast<System.Windows.Forms.ListViewItem>()
+                .Where(i => i.Checked).ToList();
+            if (selected.Count == 0) return;
+
+            btnAddToNeverFollow.Enabled = false;
+
+            foreach (var i in selected)
+            {
+                _neverFollow.Add(i.Text);
+                lvNotFollowingBack.Items.Remove(i);
+                lvNeverFollow.Items.Add(new System.Windows.Forms.ListViewItem(i.Text));
+                try
+                {
+                    await _social.UnfollowAsync(i.Text);
+                    lstLog.Items.Insert(0, $"Unfollowed + blacklisted: {i.Text}");
+                }
+                catch (Exception ex)
+                {
+                    lstLog.Items.Insert(0, $"Blacklisted (unfollow failed): {i.Text} — {ex.Message}");
+                }
+                await Task.Delay(800);
+            }
+
+            btnAddToNeverFollow.Enabled = true;
+        }
+
+        private void btnRemoveFromNeverFollow_Click(object sender, EventArgs e)
+        {
+            var selected = lvNeverFollow.SelectedItems.Cast<System.Windows.Forms.ListViewItem>().ToList();
+            if (selected.Count == 0) return;
+            foreach (var i in selected)
+            {
+                _neverFollow.Remove(i.Text);
+                lvNeverFollow.Items.Remove(i);
             }
         }
 

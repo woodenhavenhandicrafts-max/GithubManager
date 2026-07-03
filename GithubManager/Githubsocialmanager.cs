@@ -95,6 +95,12 @@ namespace GithubManager
             var followers = await GetFollowersAsync();
             var following = await GetFollowingAsync();
 
+            // Deduplicate by login — API can return same user across page boundaries
+            followers = followers.GroupBy(u => u.Login, StringComparer.OrdinalIgnoreCase)
+                                 .Select(g => g.First()).ToList();
+            following = following.GroupBy(u => u.Login, StringComparer.OrdinalIgnoreCase)
+                                 .Select(g => g.First()).ToList();
+
             var followerLogins = followers.Select(u => u.Login).ToHashSet(StringComparer.OrdinalIgnoreCase);
             var followingLogins = following.Select(u => u.Login).ToHashSet(StringComparer.OrdinalIgnoreCase);
 

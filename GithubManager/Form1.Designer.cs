@@ -13,524 +13,1316 @@ namespace GithubManager
 
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabOverview = new System.Windows.Forms.TabPage();
-            this.tabDiff = new System.Windows.Forms.TabPage();
-            this.tabCrawler = new System.Windows.Forms.TabPage();
-            this.tabAFB = new System.Windows.Forms.TabPage();
-            this.tabStarBack = new System.Windows.Forms.TabPage();
-            this.tabRepoHealth = new System.Windows.Forms.TabPage();
-            this.tabProfile = new System.Windows.Forms.TabPage();
-            this.tabAchievements = new System.Windows.Forms.TabPage();
-
-            // ============================================================
-            // Overview tab
-            // ============================================================
-            this.lblStatus = new System.Windows.Forms.Label();
-            this.lblStatus.Left = 10; this.lblStatus.Top = 10; this.lblStatus.Width = 500; this.lblStatus.Text = "Not logged in";
-
-            this.lblFollowers = new System.Windows.Forms.Label();
-            this.lblFollowers.Left = 10; this.lblFollowers.Top = 38; this.lblFollowers.Width = 200; this.lblFollowers.Text = "Followers: -";
-
-            this.lblFollowing = new System.Windows.Forms.Label();
-            this.lblFollowing.Left = 10; this.lblFollowing.Top = 60; this.lblFollowing.Width = 200; this.lblFollowing.Text = "Following: -";
-
-            this.lblRateLimit = new System.Windows.Forms.Label();
-            this.lblRateLimit.Left = 10; this.lblRateLimit.Top = 82; this.lblRateLimit.Width = 300; this.lblRateLimit.Text = "API calls remaining: -";
-
-            this.btnRefreshOverview = new System.Windows.Forms.Button();
-            this.btnRefreshOverview.Left = 10; this.btnRefreshOverview.Top = 110; this.btnRefreshOverview.Width = 120; this.btnRefreshOverview.Text = "Refresh";
-            this.btnRefreshOverview.Click += new System.EventHandler(this.btnRefreshOverview_Click);
-
-            this.btnChangeToken = new System.Windows.Forms.Button();
-            this.btnChangeToken.Left = 140; this.btnChangeToken.Top = 110; this.btnChangeToken.Width = 130; this.btnChangeToken.Text = "Change Token";
-            this.btnChangeToken.Click += new System.EventHandler(this.btnChangeToken_Click);
-
-            this.tabOverview.Controls.Add(this.lblStatus);
-            this.tabOverview.Controls.Add(this.lblFollowers);
-            this.tabOverview.Controls.Add(this.lblFollowing);
-            this.tabOverview.Controls.Add(this.lblRateLimit);
-            this.tabOverview.Controls.Add(this.btnRefreshOverview);
-            this.tabOverview.Controls.Add(this.btnChangeToken);
-            this.tabOverview.Text = "Overview";
-
-            // ============================================================
-            // Follow Diff tab
-            // ============================================================
-            this.btnLoadDiff = new System.Windows.Forms.Button();
-            this.btnLoadDiff.Left = 10; this.btnLoadDiff.Top = 10; this.btnLoadDiff.Width = 120; this.btnLoadDiff.Text = "Load Diff";
-            this.btnLoadDiff.Click += new System.EventHandler(this.btnLoadDiff_Click);
-
-            this.lblDiffStatus = new System.Windows.Forms.Label();
-            this.lblDiffStatus.Left = 140; this.lblDiffStatus.Top = 15; this.lblDiffStatus.Width = 640; this.lblDiffStatus.Text = "";
-
-            this.lvNotFollowingBack = new System.Windows.Forms.ListView();
-            this.lvNotFollowingBack.Left = 10; this.lvNotFollowingBack.Top = 42; this.lvNotFollowingBack.Width = 370; this.lvNotFollowingBack.Height = 240;
-            this.lvNotFollowingBack.CheckBoxes = true; this.lvNotFollowingBack.View = System.Windows.Forms.View.Details; this.lvNotFollowingBack.FullRowSelect = true;
-            this.lvNotFollowingBack.Columns.Add("Doesn't Follow Back", 220);
-            this.lvNotFollowingBack.Columns.Add("Following Since", 130);
-
-            this.btnSelectAllNotFollowingBack = new System.Windows.Forms.Button();
-            this.btnSelectAllNotFollowingBack.Left = 10; this.btnSelectAllNotFollowingBack.Top = 288; this.btnSelectAllNotFollowingBack.Width = 100; this.btnSelectAllNotFollowingBack.Text = "Select All";
-            this.btnSelectAllNotFollowingBack.Click += new System.EventHandler(this.btnSelectAllNotFollowingBack_Click);
-
-            this.btnUnfollowSelected = new System.Windows.Forms.Button();
-            this.btnUnfollowSelected.Left = 118; this.btnUnfollowSelected.Top = 288; this.btnUnfollowSelected.Width = 130; this.btnUnfollowSelected.Text = "Unfollow Selected";
-            this.btnUnfollowSelected.Click += new System.EventHandler(this.btnUnfollowSelected_Click);
-
-            this.btnAddToKeep = new System.Windows.Forms.Button();
-            this.btnAddToKeep.Left = 256; this.btnAddToKeep.Top = 288; this.btnAddToKeep.Width = 120; this.btnAddToKeep.Text = "→ Keep List";
-            this.btnAddToKeep.Click += new System.EventHandler(this.btnAddToKeep_Click);
-
-            this.lvNotFollowedYet = new System.Windows.Forms.ListView();
-            this.lvNotFollowedYet.Left = 395; this.lvNotFollowedYet.Top = 42; this.lvNotFollowedYet.Width = 385; this.lvNotFollowedYet.Height = 240;
-            this.lvNotFollowedYet.CheckBoxes = true; this.lvNotFollowedYet.View = System.Windows.Forms.View.Details; this.lvNotFollowedYet.FullRowSelect = true;
-            this.lvNotFollowedYet.Columns.Add("Follows You (Unreciprocated)", 250);
-            this.lvNotFollowedYet.Columns.Add("Age", 110);
-
-            this.btnSelectAllNotFollowedYet = new System.Windows.Forms.Button();
-            this.btnSelectAllNotFollowedYet.Left = 395; this.btnSelectAllNotFollowedYet.Top = 288; this.btnSelectAllNotFollowedYet.Width = 100; this.btnSelectAllNotFollowedYet.Text = "Select All";
-            this.btnSelectAllNotFollowedYet.Click += new System.EventHandler(this.btnSelectAllNotFollowedYet_Click);
-
-            this.btnFollowSelected = new System.Windows.Forms.Button();
-            this.btnFollowSelected.Left = 503; this.btnFollowSelected.Top = 288; this.btnFollowSelected.Width = 140; this.btnFollowSelected.Text = "Follow Selected";
-            this.btnFollowSelected.Click += new System.EventHandler(this.btnFollowSelected_Click);
-
-            this.btnCancelBulk = new System.Windows.Forms.Button();
-            this.btnCancelBulk.Left = 651; this.btnCancelBulk.Top = 288; this.btnCancelBulk.Width = 80; this.btnCancelBulk.Text = "Cancel";
-            this.btnCancelBulk.Click += new System.EventHandler(this.btnCancelBulk_Click);
-
-            this.lblKeepListHeader = new System.Windows.Forms.Label();
-            this.lblKeepListHeader.Left = 10; this.lblKeepListHeader.Top = 320; this.lblKeepListHeader.Width = 350; this.lblKeepListHeader.Text = "Keep List (always excluded from unfollow):";
-            this.lblKeepListHeader.Font = new Font("Segoe UI", 9, FontStyle.Bold);
-
-            this.lvKeepList = new System.Windows.Forms.ListView();
-            this.lvKeepList.Left = 10; this.lvKeepList.Top = 340; this.lvKeepList.Width = 580; this.lvKeepList.Height = 120;
-            this.lvKeepList.View = System.Windows.Forms.View.Details; this.lvKeepList.FullRowSelect = true; this.lvKeepList.MultiSelect = true;
-            this.lvKeepList.Columns.Add("Username", 280);
-            this.lvKeepList.Columns.Add("Added", 275);
-
-            this.btnRemoveFromKeep = new System.Windows.Forms.Button();
-            this.btnRemoveFromKeep.Left = 600; this.btnRemoveFromKeep.Top = 340; this.btnRemoveFromKeep.Width = 180; this.btnRemoveFromKeep.Height = 40; this.btnRemoveFromKeep.Text = "Remove from Keep List";
-            this.btnRemoveFromKeep.Click += new System.EventHandler(this.btnRemoveFromKeep_Click);
-
-            this.lstLog = new System.Windows.Forms.ListBox();
-            this.lstLog.Left = 10; this.lstLog.Top = 470; this.lstLog.Width = 770; this.lstLog.Height = 90;
-
-            this.tabDiff.Controls.Add(this.btnLoadDiff);
-            this.tabDiff.Controls.Add(this.lblDiffStatus);
-            this.tabDiff.Controls.Add(this.lvNotFollowingBack);
-            this.tabDiff.Controls.Add(this.btnSelectAllNotFollowingBack);
-            this.tabDiff.Controls.Add(this.btnUnfollowSelected);
-            this.tabDiff.Controls.Add(this.btnAddToKeep);
-            this.tabDiff.Controls.Add(this.lvNotFollowedYet);
-            this.tabDiff.Controls.Add(this.btnSelectAllNotFollowedYet);
-            this.tabDiff.Controls.Add(this.btnFollowSelected);
-            this.tabDiff.Controls.Add(this.btnCancelBulk);
-            this.tabDiff.Controls.Add(this.lblKeepListHeader);
-            this.tabDiff.Controls.Add(this.lvKeepList);
-            this.tabDiff.Controls.Add(this.btnRemoveFromKeep);
-            this.tabDiff.Controls.Add(this.lstLog);
-            this.tabDiff.Text = "Follow Diff";
-
-            // ============================================================
-            // Crawler tab
-            // ============================================================
-            this.lblTargetUser = new System.Windows.Forms.Label();
-            this.lblTargetUser.Left = 10; this.lblTargetUser.Top = 10; this.lblTargetUser.Width = 185; this.lblTargetUser.Text = "Pull candidates from user:";
-
-            this.txtTargetUser = new System.Windows.Forms.TextBox();
-            this.txtTargetUser.Left = 10; this.txtTargetUser.Top = 30; this.txtTargetUser.Width = 180;
-
-            this.btnValidateTarget = new System.Windows.Forms.Button();
-            this.btnValidateTarget.Left = 198; this.btnValidateTarget.Top = 28; this.btnValidateTarget.Width = 65; this.btnValidateTarget.Text = "Validate";
-            this.btnValidateTarget.Click += new System.EventHandler(this.btnValidateTarget_Click);
-
-            this.btnPullCandidates = new System.Windows.Forms.Button();
-            this.btnPullCandidates.Left = 270; this.btnPullCandidates.Top = 28; this.btnPullCandidates.Width = 55; this.btnPullCandidates.Text = "Pull";
-            this.btnPullCandidates.Click += new System.EventHandler(this.btnPullCandidates_Click);
-
-            this.rbSourceFollowers = new System.Windows.Forms.RadioButton();
-            this.rbSourceFollowers.Left = 10; this.rbSourceFollowers.Top = 56; this.rbSourceFollowers.Width = 145; this.rbSourceFollowers.Text = "Their followers"; this.rbSourceFollowers.Checked = true;
-
-            this.rbSourceFollowing = new System.Windows.Forms.RadioButton();
-            this.rbSourceFollowing.Left = 158; this.rbSourceFollowing.Top = 56; this.rbSourceFollowing.Width = 145; this.rbSourceFollowing.Text = "Who they follow";
-
-            this.chkQualityFilter = new System.Windows.Forms.CheckBox();
-            this.chkQualityFilter.Left = 10; this.chkQualityFilter.Top = 78; this.chkQualityFilter.Width = 310; this.chkQualityFilter.Text = "Apply quality filter (1 extra API call/candidate)";
-
-            this.lblMinRepos = new System.Windows.Forms.Label();
-            this.lblMinRepos.Left = 10; this.lblMinRepos.Top = 100; this.lblMinRepos.Width = 110; this.lblMinRepos.Text = "Min public repos:";
-
-            this.numMinRepos = new System.Windows.Forms.NumericUpDown();
-            this.numMinRepos.Left = 128; this.numMinRepos.Top = 98; this.numMinRepos.Width = 70; this.numMinRepos.Minimum = 0; this.numMinRepos.Maximum = 1000; this.numMinRepos.Value = 1;
-
-            this.lblMaxRatio = new System.Windows.Forms.Label();
-            this.lblMaxRatio.Left = 10; this.lblMaxRatio.Top = 124; this.lblMaxRatio.Width = 110; this.lblMaxRatio.Text = "Max follow ratio:";
-
-            this.numMaxRatio = new System.Windows.Forms.NumericUpDown();
-            this.numMaxRatio.Left = 128; this.numMaxRatio.Top = 122; this.numMaxRatio.Width = 70; this.numMaxRatio.Minimum = 1; this.numMaxRatio.Maximum = 1000; this.numMaxRatio.Value = 10;
-
-            this.lblQueueTarget = new System.Windows.Forms.Label();
-            this.lblQueueTarget.Left = 10; this.lblQueueTarget.Top = 148; this.lblQueueTarget.Width = 130; this.lblQueueTarget.Text = "Stop after N queued:";
-
-            this.numQueueTarget = new System.Windows.Forms.NumericUpDown();
-            this.numQueueTarget.Left = 148; this.numQueueTarget.Top = 146; this.numQueueTarget.Width = 80; this.numQueueTarget.Minimum = 10; this.numQueueTarget.Maximum = 5000; this.numQueueTarget.Value = 200; this.numQueueTarget.Increment = 10;
-
-            this.lblCandidates = new System.Windows.Forms.Label();
-            this.lblCandidates.Left = 10; this.lblCandidates.Top = 175; this.lblCandidates.Width = 300; this.lblCandidates.Text = "Candidate queue (filtered):";
-
-            this.txtCandidates = new System.Windows.Forms.TextBox();
-            this.txtCandidates.Left = 10; this.txtCandidates.Top = 193; this.txtCandidates.Width = 300; this.txtCandidates.Height = 88;
-            this.txtCandidates.Multiline = true; this.txtCandidates.ScrollBars = System.Windows.Forms.ScrollBars.Vertical; this.txtCandidates.ReadOnly = true;
-
-            this.picTargetAvatar = new System.Windows.Forms.PictureBox();
-            this.picTargetAvatar.Left = 330; this.picTargetAvatar.Top = 10; this.picTargetAvatar.Width = 72; this.picTargetAvatar.Height = 72;
-            this.picTargetAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picTargetAvatar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-
-            this.lblTargetName = new System.Windows.Forms.Label();
-            this.lblTargetName.Left = 412; this.lblTargetName.Top = 10; this.lblTargetName.Width = 370; this.lblTargetName.Text = "";
-            this.lblTargetName.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-
-            this.lblTargetFollowers = new System.Windows.Forms.Label();
-            this.lblTargetFollowers.Left = 412; this.lblTargetFollowers.Top = 32; this.lblTargetFollowers.Width = 370; this.lblTargetFollowers.Text = "";
-
-            this.lblTargetFollowing = new System.Windows.Forms.Label();
-            this.lblTargetFollowing.Left = 412; this.lblTargetFollowing.Top = 50; this.lblTargetFollowing.Width = 370; this.lblTargetFollowing.Text = "";
-
-            this.lblTargetRepos = new System.Windows.Forms.Label();
-            this.lblTargetRepos.Left = 412; this.lblTargetRepos.Top = 68; this.lblTargetRepos.Width = 370; this.lblTargetRepos.Text = "";
-
-            this.lnkTargetProfile = new System.Windows.Forms.LinkLabel();
-            this.lnkTargetProfile.Left = 330; this.lnkTargetProfile.Top = 88; this.lnkTargetProfile.Width = 300; this.lnkTargetProfile.Text = "";
-            this.lnkTargetProfile.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkTargetProfile_LinkClicked);
-
-            this.lblTargetAssessment = new System.Windows.Forms.Label();
-            this.lblTargetAssessment.Left = 330; this.lblTargetAssessment.Top = 108; this.lblTargetAssessment.Width = 450; this.lblTargetAssessment.Text = "";
-            this.lblTargetAssessment.Font = new Font("Segoe UI", 9, FontStyle.Bold);
-
-            this.lblDailyCap = new System.Windows.Forms.Label();
-            this.lblDailyCap.Left = 330; this.lblDailyCap.Top = 138; this.lblDailyCap.Width = 100; this.lblDailyCap.Text = "Daily cap:";
-
-            this.numDailyCap = new System.Windows.Forms.NumericUpDown();
-            this.numDailyCap.Left = 450; this.numDailyCap.Top = 136; this.numDailyCap.Width = 80; this.numDailyCap.Minimum = 1; this.numDailyCap.Maximum = 500; this.numDailyCap.Value = 50;
-
-            this.lblMinInterval = new System.Windows.Forms.Label();
-            this.lblMinInterval.Left = 330; this.lblMinInterval.Top = 164; this.lblMinInterval.Width = 115; this.lblMinInterval.Text = "Min interval (min):";
-
-            this.numMinInterval = new System.Windows.Forms.NumericUpDown();
-            this.numMinInterval.Left = 450; this.numMinInterval.Top = 162; this.numMinInterval.Width = 80; this.numMinInterval.Minimum = 1; this.numMinInterval.Maximum = 1440; this.numMinInterval.Value = 1;
-
-            this.lblMaxInterval = new System.Windows.Forms.Label();
-            this.lblMaxInterval.Left = 330; this.lblMaxInterval.Top = 190; this.lblMaxInterval.Width = 115; this.lblMaxInterval.Text = "Max interval (min):";
-
-            this.numMaxInterval = new System.Windows.Forms.NumericUpDown();
-            this.numMaxInterval.Left = 450; this.numMaxInterval.Top = 188; this.numMaxInterval.Width = 80; this.numMaxInterval.Minimum = 1; this.numMaxInterval.Maximum = 1440; this.numMaxInterval.Value = 5;
-
-            this.btnStartCrawler = new System.Windows.Forms.Button();
-            this.btnStartCrawler.Left = 330; this.btnStartCrawler.Top = 218; this.btnStartCrawler.Width = 155; this.btnStartCrawler.Text = "Start Follow Crawler";
-            this.btnStartCrawler.Click += new System.EventHandler(this.btnStartCrawler_Click);
-
-            this.btnStopCrawler = new System.Windows.Forms.Button();
-            this.btnStopCrawler.Left = 493; this.btnStopCrawler.Top = 218; this.btnStopCrawler.Width = 110; this.btnStopCrawler.Text = "Stop Crawler"; this.btnStopCrawler.Enabled = false;
-            this.btnStopCrawler.Click += new System.EventHandler(this.btnStopCrawler_Click);
-
-            this.lblCrawlerStatus = new System.Windows.Forms.Label();
-            this.lblCrawlerStatus.Left = 330; this.lblCrawlerStatus.Top = 250; this.lblCrawlerStatus.Width = 450; this.lblCrawlerStatus.Text = "Crawler idle.";
-
-            this.lblNextFollowCountdown = new System.Windows.Forms.Label();
-            this.lblNextFollowCountdown.Left = 330; this.lblNextFollowCountdown.Top = 270; this.lblNextFollowCountdown.Width = 450; this.lblNextFollowCountdown.Text = "";
-
-            this.btnExportCandidates = new System.Windows.Forms.Button();
-            this.btnExportCandidates.Left = 10; this.btnExportCandidates.Top = 287; this.btnExportCandidates.Width = 148; this.btnExportCandidates.Text = "Export Candidate Queue";
-            this.btnExportCandidates.Click += new System.EventHandler(this.btnExportCandidates_Click);
-
-            this.btnExportFollowLog = new System.Windows.Forms.Button();
-            this.btnExportFollowLog.Left = 165; this.btnExportFollowLog.Top = 287; this.btnExportFollowLog.Width = 145; this.btnExportFollowLog.Text = "Export Follow Log";
-            this.btnExportFollowLog.Click += new System.EventHandler(this.btnExportFollowLog_Click);
-
-            this.lstCrawlerLog = new System.Windows.Forms.ListBox();
-            this.lstCrawlerLog.Left = 10; this.lstCrawlerLog.Top = 317; this.lstCrawlerLog.Width = 770; this.lstCrawlerLog.Height = 240;
-
-            this.tabCrawler.Controls.Add(this.lblTargetUser);
-            this.tabCrawler.Controls.Add(this.txtTargetUser);
-            this.tabCrawler.Controls.Add(this.btnValidateTarget);
-            this.tabCrawler.Controls.Add(this.btnPullCandidates);
-            this.tabCrawler.Controls.Add(this.rbSourceFollowers);
-            this.tabCrawler.Controls.Add(this.rbSourceFollowing);
-            this.tabCrawler.Controls.Add(this.chkQualityFilter);
-            this.tabCrawler.Controls.Add(this.lblMinRepos);
-            this.tabCrawler.Controls.Add(this.numMinRepos);
-            this.tabCrawler.Controls.Add(this.lblMaxRatio);
-            this.tabCrawler.Controls.Add(this.numMaxRatio);
-            this.tabCrawler.Controls.Add(this.lblQueueTarget);
-            this.tabCrawler.Controls.Add(this.numQueueTarget);
-            this.tabCrawler.Controls.Add(this.lblCandidates);
-            this.tabCrawler.Controls.Add(this.txtCandidates);
-            this.tabCrawler.Controls.Add(this.picTargetAvatar);
-            this.tabCrawler.Controls.Add(this.lblTargetName);
-            this.tabCrawler.Controls.Add(this.lblTargetFollowers);
-            this.tabCrawler.Controls.Add(this.lblTargetFollowing);
-            this.tabCrawler.Controls.Add(this.lblTargetRepos);
-            this.tabCrawler.Controls.Add(this.lnkTargetProfile);
-            this.tabCrawler.Controls.Add(this.lblTargetAssessment);
-            this.tabCrawler.Controls.Add(this.lblDailyCap);
-            this.tabCrawler.Controls.Add(this.numDailyCap);
-            this.tabCrawler.Controls.Add(this.lblMinInterval);
-            this.tabCrawler.Controls.Add(this.numMinInterval);
-            this.tabCrawler.Controls.Add(this.lblMaxInterval);
-            this.tabCrawler.Controls.Add(this.numMaxInterval);
-            this.tabCrawler.Controls.Add(this.btnStartCrawler);
-            this.tabCrawler.Controls.Add(this.btnStopCrawler);
-            this.tabCrawler.Controls.Add(this.lblCrawlerStatus);
-            this.tabCrawler.Controls.Add(this.lblNextFollowCountdown);
-            this.tabCrawler.Controls.Add(this.btnExportCandidates);
-            this.tabCrawler.Controls.Add(this.btnExportFollowLog);
-            this.tabCrawler.Controls.Add(this.lstCrawlerLog);
-            this.tabCrawler.Text = "Crawler";
-
-            // ============================================================
-            // Auto Follow-Back tab
-            // ============================================================
-            this.lblAFBInterval = new System.Windows.Forms.Label();
-            this.lblAFBInterval.Left = 10; this.lblAFBInterval.Top = 12; this.lblAFBInterval.Width = 130; this.lblAFBInterval.Text = "Poll interval (min):";
-
-            this.numAFBInterval = new System.Windows.Forms.NumericUpDown();
-            this.numAFBInterval.Left = 148; this.numAFBInterval.Top = 10; this.numAFBInterval.Width = 80; this.numAFBInterval.Minimum = 1; this.numAFBInterval.Maximum = 1440; this.numAFBInterval.Value = 30;
-
-            this.btnStartAutoFollowBack = new System.Windows.Forms.Button();
-            this.btnStartAutoFollowBack.Left = 240; this.btnStartAutoFollowBack.Top = 8; this.btnStartAutoFollowBack.Width = 140; this.btnStartAutoFollowBack.Text = "Start Auto Follow-Back";
-            this.btnStartAutoFollowBack.Click += new System.EventHandler(this.btnStartAutoFollowBack_Click);
-
-            this.btnStopAutoFollowBack = new System.Windows.Forms.Button();
-            this.btnStopAutoFollowBack.Left = 388; this.btnStopAutoFollowBack.Top = 8; this.btnStopAutoFollowBack.Width = 80; this.btnStopAutoFollowBack.Text = "Stop"; this.btnStopAutoFollowBack.Enabled = false;
-            this.btnStopAutoFollowBack.Click += new System.EventHandler(this.btnStopAutoFollowBack_Click);
-
-            this.btnRunAFBNow = new System.Windows.Forms.Button();
-            this.btnRunAFBNow.Left = 476; this.btnRunAFBNow.Top = 8; this.btnRunAFBNow.Width = 110; this.btnRunAFBNow.Text = "Run Once Now";
-            this.btnRunAFBNow.Click += new System.EventHandler(this.btnRunAFBNow_Click);
-
-            this.lblAFBStatus = new System.Windows.Forms.Label();
-            this.lblAFBStatus.Left = 10; this.lblAFBStatus.Top = 38; this.lblAFBStatus.Width = 500; this.lblAFBStatus.Text = "Idle.";
-
-            this.lblAFBCountdown = new System.Windows.Forms.Label();
-            this.lblAFBCountdown.Left = 10; this.lblAFBCountdown.Top = 58; this.lblAFBCountdown.Width = 300; this.lblAFBCountdown.Text = "";
-
-            this.lstAFBLog = new System.Windows.Forms.ListBox();
-            this.lstAFBLog.Left = 10; this.lstAFBLog.Top = 82; this.lstAFBLog.Width = 770; this.lstAFBLog.Height = 470;
-
-            this.tabAFB.Controls.Add(this.lblAFBInterval);
-            this.tabAFB.Controls.Add(this.numAFBInterval);
-            this.tabAFB.Controls.Add(this.btnStartAutoFollowBack);
-            this.tabAFB.Controls.Add(this.btnStopAutoFollowBack);
-            this.tabAFB.Controls.Add(this.btnRunAFBNow);
-            this.tabAFB.Controls.Add(this.lblAFBStatus);
-            this.tabAFB.Controls.Add(this.lblAFBCountdown);
-            this.tabAFB.Controls.Add(this.lstAFBLog);
-            this.tabAFB.Text = "Auto Follow-Back";
-
-            // ============================================================
-            // Star-Back tab
-            // ============================================================
-            this.lblFollowersToScan = new System.Windows.Forms.Label();
-            this.lblFollowersToScan.Left = 10; this.lblFollowersToScan.Top = 12; this.lblFollowersToScan.Width = 130; this.lblFollowersToScan.Text = "Followers to scan:";
-
-            this.numFollowersToScan = new System.Windows.Forms.NumericUpDown();
-            this.numFollowersToScan.Left = 148; this.numFollowersToScan.Top = 10; this.numFollowersToScan.Width = 80; this.numFollowersToScan.Minimum = 1; this.numFollowersToScan.Maximum = 500; this.numFollowersToScan.Value = 50;
-
-            this.lblMinStarsForStar = new System.Windows.Forms.Label();
-            this.lblMinStarsForStar.Left = 240; this.lblMinStarsForStar.Top = 12; this.lblMinStarsForStar.Width = 90; this.lblMinStarsForStar.Text = "Min repo stars:";
-
-            this.numMinStarsForStar = new System.Windows.Forms.NumericUpDown();
-            this.numMinStarsForStar.Left = 334; this.numMinStarsForStar.Top = 10; this.numMinStarsForStar.Width = 70; this.numMinStarsForStar.Minimum = 0; this.numMinStarsForStar.Maximum = 10000; this.numMinStarsForStar.Value = 5;
-
-            this.btnLoadStarCandidates = new System.Windows.Forms.Button();
-            this.btnLoadStarCandidates.Left = 416; this.btnLoadStarCandidates.Top = 8; this.btnLoadStarCandidates.Width = 130; this.btnLoadStarCandidates.Text = "Load Candidates";
-            this.btnLoadStarCandidates.Click += new System.EventHandler(this.btnLoadStarCandidates_Click);
-
-            this.btnCancelStarScan = new System.Windows.Forms.Button();
-            this.btnCancelStarScan.Left = 554; this.btnCancelStarScan.Top = 8; this.btnCancelStarScan.Width = 70; this.btnCancelStarScan.Text = "Cancel"; this.btnCancelStarScan.Enabled = false;
-            this.btnCancelStarScan.Click += new System.EventHandler(this.btnCancelStarScan_Click);
-
-            this.btnSelectAllStars = new System.Windows.Forms.Button();
-            this.btnSelectAllStars.Left = 632; this.btnSelectAllStars.Top = 8; this.btnSelectAllStars.Width = 90; this.btnSelectAllStars.Text = "Select All";
-            this.btnSelectAllStars.Click += new System.EventHandler(this.btnSelectAllStars_Click);
-
-            this.btnStarSelected = new System.Windows.Forms.Button();
-            this.btnStarSelected.Left = 730; this.btnStarSelected.Top = 8; this.btnStarSelected.Width = 110; this.btnStarSelected.Text = "⭐ Star Checked";
-            this.btnStarSelected.Click += new System.EventHandler(this.btnStarSelected_Click);
-
-            this.btnOpenStarUrl = new System.Windows.Forms.Button();
-            this.btnOpenStarUrl.Left = 750; this.btnOpenStarUrl.Top = 8; this.btnOpenStarUrl.Width = 108; this.btnOpenStarUrl.Text = "Open in Browser";
-            this.btnOpenStarUrl.Click += new System.EventHandler(this.btnOpenStarUrl_Click);
-
-            this.lblStarBackStatus = new System.Windows.Forms.Label();
-            this.lblStarBackStatus.Left = 10; this.lblStarBackStatus.Top = 38; this.lblStarBackStatus.Width = 760; this.lblStarBackStatus.Text = "";
-
-            this.dgvStarBack = new System.Windows.Forms.DataGridView();
-            this.dgvStarBack.Left = 10; this.dgvStarBack.Top = 58; this.dgvStarBack.Width = 770; this.dgvStarBack.Height = 390;
-            this.dgvStarBack.AllowUserToAddRows = false; this.dgvStarBack.ReadOnly = false;
-            this.dgvStarBack.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvStarBack.Columns.Add(new System.Windows.Forms.DataGridViewCheckBoxColumn { HeaderText = "Star?", Width = 50 });
-            this.dgvStarBack.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "Repo", Width = 300, ReadOnly = true });
-            this.dgvStarBack.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "Stars", Width = 70, ReadOnly = true });
-            this.dgvStarBack.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "URL", Width = 320, ReadOnly = true });
-
-            this.lstStarBackLog = new System.Windows.Forms.ListBox();
-            this.lstStarBackLog.Left = 10; this.lstStarBackLog.Top = 458; this.lstStarBackLog.Width = 770; this.lstStarBackLog.Height = 98;
-
-            this.tabStarBack.Controls.Add(this.lblFollowersToScan);
-            this.tabStarBack.Controls.Add(this.numFollowersToScan);
-            this.tabStarBack.Controls.Add(this.lblMinStarsForStar);
-            this.tabStarBack.Controls.Add(this.numMinStarsForStar);
-            this.tabStarBack.Controls.Add(this.btnLoadStarCandidates);
-            this.tabStarBack.Controls.Add(this.btnCancelStarScan);
-            this.tabStarBack.Controls.Add(this.btnSelectAllStars);
-            this.tabStarBack.Controls.Add(this.btnStarSelected);
-            this.tabStarBack.Controls.Add(this.btnOpenStarUrl);
-            this.tabStarBack.Controls.Add(this.lblStarBackStatus);
-            this.tabStarBack.Controls.Add(this.dgvStarBack);
-            this.tabStarBack.Controls.Add(this.lstStarBackLog);
-            this.tabStarBack.Text = "Star-Back";
-
-            // ============================================================
-            // Repo Health tab
-            // ============================================================
-            this.btnScanRepos = new System.Windows.Forms.Button();
-            this.btnScanRepos.Left = 10; this.btnScanRepos.Top = 10; this.btnScanRepos.Width = 120; this.btnScanRepos.Text = "Scan My Repos";
-            this.btnScanRepos.Click += new System.EventHandler(this.btnScanRepos_Click);
-
-            this.btnOpenRepoUrl = new System.Windows.Forms.Button();
-            this.btnOpenRepoUrl.Left = 138; this.btnOpenRepoUrl.Top = 10; this.btnOpenRepoUrl.Width = 120; this.btnOpenRepoUrl.Text = "Open in Browser";
-            this.btnOpenRepoUrl.Click += new System.EventHandler(this.btnOpenRepoUrl_Click);
-
-            this.btnQuickFixTopics = new System.Windows.Forms.Button();
-            this.btnQuickFixTopics.Left = 266; this.btnQuickFixTopics.Top = 10; this.btnQuickFixTopics.Width = 130; this.btnQuickFixTopics.Text = "Set Topics (selected)";
-            this.btnQuickFixTopics.Click += new System.EventHandler(this.btnQuickFixTopics_Click);
-
-            this.lblRepoHealthStatus = new System.Windows.Forms.Label();
-            this.lblRepoHealthStatus.Left = 408; this.lblRepoHealthStatus.Top = 15; this.lblRepoHealthStatus.Width = 372; this.lblRepoHealthStatus.Text = "";
-
-            this.dgvRepoHealth = new System.Windows.Forms.DataGridView();
-            this.dgvRepoHealth.Left = 10; this.dgvRepoHealth.Top = 40; this.dgvRepoHealth.Width = 770; this.dgvRepoHealth.Height = 520;
-            this.dgvRepoHealth.AllowUserToAddRows = false; this.dgvRepoHealth.ReadOnly = true; this.dgvRepoHealth.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRepoHealth.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRepoHealth.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "Repo", Width = 160 });
-            this.dgvRepoHealth.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "⭐", Width = 45 });
-            this.dgvRepoHealth.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "README", Width = 65 });
-            this.dgvRepoHealth.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "Desc", Width = 45 });
-            this.dgvRepoHealth.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "Topics", Width = 180 });
-            this.dgvRepoHealth.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "URL", Width = 45 });
-            this.dgvRepoHealth.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "Activity", Width = 75 });
-            this.dgvRepoHealth.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "Health", Width = 80 });
-            this.dgvRepoHealth.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "GitHub URL", Width = 60 });
-
-            this.tabRepoHealth.Controls.Add(this.btnScanRepos);
-            this.tabRepoHealth.Controls.Add(this.btnOpenRepoUrl);
-            this.tabRepoHealth.Controls.Add(this.btnQuickFixTopics);
-            this.tabRepoHealth.Controls.Add(this.lblRepoHealthStatus);
-            this.tabRepoHealth.Controls.Add(this.dgvRepoHealth);
-            this.tabRepoHealth.Text = "Repo Health";
-
-            // ============================================================
-            // Profile Preview tab
-            // ============================================================
-            this.btnRefreshProfile = new System.Windows.Forms.Button();
-            this.btnRefreshProfile.Left = 10; this.btnRefreshProfile.Top = 10; this.btnRefreshProfile.Width = 90; this.btnRefreshProfile.Text = "Refresh";
-            this.btnRefreshProfile.Click += new System.EventHandler(this.btnRefreshProfile_Click);
-
-            this.btnOpenProfileBrowser = new System.Windows.Forms.Button();
-            this.btnOpenProfileBrowser.Left = 108; this.btnOpenProfileBrowser.Top = 10; this.btnOpenProfileBrowser.Width = 120; this.btnOpenProfileBrowser.Text = "Open in Browser";
-            this.btnOpenProfileBrowser.Click += new System.EventHandler(this.btnOpenProfileBrowser_Click);
-
-            this.lblProfileRefreshInterval = new System.Windows.Forms.Label();
-            this.lblProfileRefreshInterval.Left = 240; this.lblProfileRefreshInterval.Top = 13; this.lblProfileRefreshInterval.Width = 110; this.lblProfileRefreshInterval.Text = "Auto-refresh (sec):";
-
-            this.numProfileRefreshInterval = new System.Windows.Forms.NumericUpDown();
-            this.numProfileRefreshInterval.Left = 354; this.numProfileRefreshInterval.Top = 10; this.numProfileRefreshInterval.Width = 70; this.numProfileRefreshInterval.Minimum = 1; this.numProfileRefreshInterval.Maximum = 3600; this.numProfileRefreshInterval.Value = 30;
-
-            this.btnStartProfileAutoRefresh = new System.Windows.Forms.Button();
-            this.btnStartProfileAutoRefresh.Left = 432; this.btnStartProfileAutoRefresh.Top = 8; this.btnStartProfileAutoRefresh.Width = 110; this.btnStartProfileAutoRefresh.Text = "Start Auto-Refresh";
-            this.btnStartProfileAutoRefresh.Click += new System.EventHandler(this.btnStartProfileAutoRefresh_Click);
-
-            this.btnStopProfileAutoRefresh = new System.Windows.Forms.Button();
-            this.btnStopProfileAutoRefresh.Left = 550; this.btnStopProfileAutoRefresh.Top = 8; this.btnStopProfileAutoRefresh.Width = 60; this.btnStopProfileAutoRefresh.Text = "Stop"; this.btnStopProfileAutoRefresh.Enabled = false;
-            this.btnStopProfileAutoRefresh.Click += new System.EventHandler(this.btnStopProfileAutoRefresh_Click);
-
-            this.lblProfileStatus = new System.Windows.Forms.Label();
-            this.lblProfileStatus.Left = 622; this.lblProfileStatus.Top = 13; this.lblProfileStatus.Width = 158; this.lblProfileStatus.Text = "";
-
-            this.webProfile = new System.Windows.Forms.WebBrowser();
-            this.webProfile.Left = 10; this.webProfile.Top = 60; this.webProfile.Width = 770; this.webProfile.Height = 500;
-            this.webProfile.ScriptErrorsSuppressed = true;
-
-            this.tabProfile.Controls.Add(this.btnRefreshProfile);
-            this.tabProfile.Controls.Add(this.btnOpenProfileBrowser);
-            this.tabProfile.Controls.Add(this.lblProfileRefreshInterval);
-            this.tabProfile.Controls.Add(this.numProfileRefreshInterval);
-            this.tabProfile.Controls.Add(this.btnStartProfileAutoRefresh);
-            this.tabProfile.Controls.Add(this.btnStopProfileAutoRefresh);
-            this.tabProfile.Controls.Add(this.lblProfileStatus);
-            this.tabProfile.Controls.Add(this.webProfile);
-            this.tabProfile.Text = "Profile";
-            this.tabProfile.Enter += new System.EventHandler(this.tabProfile_Enter);
-
-            // ============================================================
-            // Achievements tab
-            // ============================================================
-            this.btnCheckAchievements = new System.Windows.Forms.Button();
-            this.btnCheckAchievements.Left = 10; this.btnCheckAchievements.Top = 10; this.btnCheckAchievements.Width = 160; this.btnCheckAchievements.Text = "Check My Achievements";
-            this.btnCheckAchievements.Click += new System.EventHandler(this.btnCheckAchievements_Click);
-
-            this.lblAchievementStatus = new System.Windows.Forms.Label();
-            this.lblAchievementStatus.Left = 180; this.lblAchievementStatus.Top = 14; this.lblAchievementStatus.Width = 580; this.lblAchievementStatus.Text = "Click Check to load your achievement progress.";
-
-            this.dgvAchievements = new System.Windows.Forms.DataGridView();
-            this.dgvAchievements.Left = 10; this.dgvAchievements.Top = 40; this.dgvAchievements.Width = 770; this.dgvAchievements.Height = 440;
-            this.dgvAchievements.AllowUserToAddRows = false; this.dgvAchievements.ReadOnly = true;
-            this.dgvAchievements.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAchievements.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAchievements.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "Achievement", Width = 165 });
-            this.dgvAchievements.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "Status", Width = 90 });
-            this.dgvAchievements.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "Tier", Width = 75 });
-            this.dgvAchievements.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "Progress", Width = 100 });
-            this.dgvAchievements.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "Next Goal", Width = 80 });
-            this.dgvAchievements.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "Description", Width = 220 });
-            this.dgvAchievements.Columns.Add(new System.Windows.Forms.DataGridViewTextBoxColumn { HeaderText = "Notes", Width = 200 });
-
-            this.btnOpenAchievementUrl = new System.Windows.Forms.Button();
-            this.btnOpenAchievementUrl.Left = 10; this.btnOpenAchievementUrl.Top = 490; this.btnOpenAchievementUrl.Width = 160; this.btnOpenAchievementUrl.Text = "Open in Browser";
-            this.btnOpenAchievementUrl.Click += new System.EventHandler(this.btnOpenAchievementUrl_Click);
-
-            this.btnHowToUnlock = new System.Windows.Forms.Button();
-            this.btnHowToUnlock.Left = 178; this.btnHowToUnlock.Top = 490; this.btnHowToUnlock.Width = 160; this.btnHowToUnlock.Text = "How To Unlock";
-            this.btnHowToUnlock.Click += new System.EventHandler(this.btnHowToUnlock_Click);
-
-            this.tabAchievements.Controls.Add(this.btnCheckAchievements);
-            this.tabAchievements.Controls.Add(this.lblAchievementStatus);
-            this.tabAchievements.Controls.Add(this.dgvAchievements);
-            this.tabAchievements.Controls.Add(this.btnOpenAchievementUrl);
-            this.tabAchievements.Controls.Add(this.btnHowToUnlock);
-            this.tabAchievements.Text = "Achievements";
-
-            // ============================================================
-            // Tab control + Form
-            // ============================================================
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.TabPages.Add(this.tabOverview);
-            this.tabControl1.TabPages.Add(this.tabDiff);
-            this.tabControl1.TabPages.Add(this.tabCrawler);
-            this.tabControl1.TabPages.Add(this.tabAFB);
-            this.tabControl1.TabPages.Add(this.tabStarBack);
-            this.tabControl1.TabPages.Add(this.tabRepoHealth);
-            this.tabControl1.TabPages.Add(this.tabProfile);
-            this.tabControl1.TabPages.Add(this.tabAchievements);
-
-            this.ClientSize = new Size(800, 620);
-            this.Controls.Add(this.tabControl1);
-            this.Text = "GitHub Manager";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            tabControl1 = new TabControl();
+            tabOverview = new TabPage();
+            lblStatus = new Label();
+            lblFollowers = new Label();
+            lblFollowing = new Label();
+            lblRateLimit = new Label();
+            btnRefreshOverview = new Button();
+            btnChangeToken = new Button();
+            tabDiff = new TabPage();
+            btnLoadDiff = new Button();
+            lblDiffStatus = new Label();
+            lvNotFollowingBack = new ListView();
+            btnSelectAllNotFollowingBack = new Button();
+            btnUnfollowSelected = new Button();
+            btnAddToKeep = new Button();
+            lvNotFollowedYet = new ListView();
+            btnSelectAllNotFollowedYet = new Button();
+            btnFollowSelected = new Button();
+            btnCancelBulk = new Button();
+            lblKeepListHeader = new Label();
+            lvKeepList = new ListView();
+            btnRemoveFromKeep = new Button();
+            btnAddToNeverFollow = new Button();
+            lblNeverFollowHeader = new Label();
+            lvNeverFollow = new ListView();
+            btnRemoveFromNeverFollow = new Button();
+            lstLog = new ListBox();
+            tabCrawler = new TabPage();
+            lblTargetUser = new Label();
+            txtTargetUser = new TextBox();
+            btnValidateTarget = new Button();
+            btnPullCandidates = new Button();
+            rbSourceFollowers = new RadioButton();
+            rbSourceFollowing = new RadioButton();
+            chkQualityFilter = new CheckBox();
+            lblMinRepos = new Label();
+            numMinRepos = new NumericUpDown();
+            lblMaxRatio = new Label();
+            numMaxRatio = new NumericUpDown();
+            lblQueueTarget = new Label();
+            numQueueTarget = new NumericUpDown();
+            lblCandidates = new Label();
+            txtCandidates = new TextBox();
+            picTargetAvatar = new PictureBox();
+            lblTargetName = new Label();
+            lblTargetFollowers = new Label();
+            lblTargetFollowing = new Label();
+            lblTargetRepos = new Label();
+            lnkTargetProfile = new LinkLabel();
+            lblTargetAssessment = new Label();
+            lblDailyCap = new Label();
+            numDailyCap = new NumericUpDown();
+            lblMinInterval = new Label();
+            numMinInterval = new NumericUpDown();
+            lblMaxInterval = new Label();
+            numMaxInterval = new NumericUpDown();
+            btnStartCrawler = new Button();
+            btnStopCrawler = new Button();
+            lblCrawlerStatus = new Label();
+            lblNextFollowCountdown = new Label();
+            btnExportCandidates = new Button();
+            btnExportFollowLog = new Button();
+            lstCrawlerLog = new ListBox();
+            tabAFB = new TabPage();
+            lblAFBInterval = new Label();
+            numAFBInterval = new NumericUpDown();
+            btnStartAutoFollowBack = new Button();
+            btnStopAutoFollowBack = new Button();
+            btnRunAFBNow = new Button();
+            lblAFBStatus = new Label();
+            lblAFBCountdown = new Label();
+            lstAFBLog = new ListBox();
+            tabStarBack = new TabPage();
+            lblFollowersToScan = new Label();
+            numFollowersToScan = new NumericUpDown();
+            lblMinStarsForStar = new Label();
+            numMinStarsForStar = new NumericUpDown();
+            btnLoadStarCandidates = new Button();
+            btnCancelStarScan = new Button();
+            btnSelectAllStars = new Button();
+            btnStarSelected = new Button();
+            btnOpenStarUrl = new Button();
+            lblStarBackStatus = new Label();
+            dgvStarBack = new DataGridView();
+            dataGridViewCheckBoxColumn1 = new DataGridViewCheckBoxColumn();
+            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
+            lstStarBackLog = new ListBox();
+            tabRepoHealth = new TabPage();
+            btnScanRepos = new Button();
+            btnOpenRepoUrl = new Button();
+            btnQuickFixTopics = new Button();
+            lblRepoHealthStatus = new Label();
+            dgvRepoHealth = new DataGridView();
+            dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn9 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn10 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn11 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn12 = new DataGridViewTextBoxColumn();
+            tabProfile = new TabPage();
+            btnRefreshProfile = new Button();
+            btnOpenProfileBrowser = new Button();
+            lblProfileRefreshInterval = new Label();
+            numProfileRefreshInterval = new NumericUpDown();
+            btnStartProfileAutoRefresh = new Button();
+            btnStopProfileAutoRefresh = new Button();
+            lblProfileStatus = new Label();
+            webProfile = new WebBrowser();
+            tabAchievements = new TabPage();
+            btnCheckAchievements = new Button();
+            lblAchievementStatus = new Label();
+            dgvAchievements = new DataGridView();
+            dataGridViewTextBoxColumn13 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn14 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn15 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn16 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn17 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn18 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn19 = new DataGridViewTextBoxColumn();
+            btnOpenAchievementUrl = new Button();
+            btnHowToUnlock = new Button();
+            tabControl1.SuspendLayout();
+            tabOverview.SuspendLayout();
+            tabDiff.SuspendLayout();
+            tabCrawler.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numMinRepos).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numMaxRatio).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numQueueTarget).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picTargetAvatar).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numDailyCap).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numMinInterval).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numMaxInterval).BeginInit();
+            tabAFB.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numAFBInterval).BeginInit();
+            tabStarBack.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numFollowersToScan).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numMinStarsForStar).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvStarBack).BeginInit();
+            tabRepoHealth.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvRepoHealth).BeginInit();
+            tabProfile.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numProfileRefreshInterval).BeginInit();
+            tabAchievements.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvAchievements).BeginInit();
+            SuspendLayout();
+            // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(tabOverview);
+            tabControl1.Controls.Add(tabDiff);
+            tabControl1.Controls.Add(tabCrawler);
+            tabControl1.Controls.Add(tabAFB);
+            tabControl1.Controls.Add(tabStarBack);
+            tabControl1.Controls.Add(tabRepoHealth);
+            tabControl1.Controls.Add(tabProfile);
+            tabControl1.Controls.Add(tabAchievements);
+            tabControl1.Dock = DockStyle.Fill;
+            tabControl1.Location = new Point(0, 0);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(800, 700);
+            tabControl1.TabIndex = 0;
+            // 
+            // tabOverview
+            // 
+            tabOverview.Controls.Add(lblStatus);
+            tabOverview.Controls.Add(lblFollowers);
+            tabOverview.Controls.Add(lblFollowing);
+            tabOverview.Controls.Add(lblRateLimit);
+            tabOverview.Controls.Add(btnRefreshOverview);
+            tabOverview.Controls.Add(btnChangeToken);
+            tabOverview.Location = new Point(4, 24);
+            tabOverview.Name = "tabOverview";
+            tabOverview.Size = new Size(792, 672);
+            tabOverview.TabIndex = 0;
+            tabOverview.Text = "Overview";
+            // 
+            // lblStatus
+            // 
+            lblStatus.Location = new Point(10, 10);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(500, 23);
+            lblStatus.TabIndex = 0;
+            lblStatus.Text = "Not logged in";
+            // 
+            // lblFollowers
+            // 
+            lblFollowers.Location = new Point(10, 38);
+            lblFollowers.Name = "lblFollowers";
+            lblFollowers.Size = new Size(200, 23);
+            lblFollowers.TabIndex = 1;
+            lblFollowers.Text = "Followers: -";
+            // 
+            // lblFollowing
+            // 
+            lblFollowing.Location = new Point(10, 60);
+            lblFollowing.Name = "lblFollowing";
+            lblFollowing.Size = new Size(200, 23);
+            lblFollowing.TabIndex = 2;
+            lblFollowing.Text = "Following: -";
+            // 
+            // lblRateLimit
+            // 
+            lblRateLimit.Location = new Point(10, 82);
+            lblRateLimit.Name = "lblRateLimit";
+            lblRateLimit.Size = new Size(300, 23);
+            lblRateLimit.TabIndex = 3;
+            lblRateLimit.Text = "API calls remaining: -";
+            // 
+            // btnRefreshOverview
+            // 
+            btnRefreshOverview.Location = new Point(10, 110);
+            btnRefreshOverview.Name = "btnRefreshOverview";
+            btnRefreshOverview.Size = new Size(120, 23);
+            btnRefreshOverview.TabIndex = 4;
+            btnRefreshOverview.Text = "Refresh";
+            btnRefreshOverview.Click += btnRefreshOverview_Click;
+            // 
+            // btnChangeToken
+            // 
+            btnChangeToken.Location = new Point(140, 110);
+            btnChangeToken.Name = "btnChangeToken";
+            btnChangeToken.Size = new Size(130, 23);
+            btnChangeToken.TabIndex = 5;
+            btnChangeToken.Text = "Change Token";
+            btnChangeToken.Click += btnChangeToken_Click;
+            // 
+            // tabDiff
+            // 
+            tabDiff.Controls.Add(btnLoadDiff);
+            tabDiff.Controls.Add(lblDiffStatus);
+            tabDiff.Controls.Add(lvNotFollowingBack);
+            tabDiff.Controls.Add(btnSelectAllNotFollowingBack);
+            tabDiff.Controls.Add(btnUnfollowSelected);
+            tabDiff.Controls.Add(btnAddToKeep);
+            tabDiff.Controls.Add(lvNotFollowedYet);
+            tabDiff.Controls.Add(btnSelectAllNotFollowedYet);
+            tabDiff.Controls.Add(btnFollowSelected);
+            tabDiff.Controls.Add(btnCancelBulk);
+            tabDiff.Controls.Add(lblKeepListHeader);
+            tabDiff.Controls.Add(lvKeepList);
+            tabDiff.Controls.Add(btnRemoveFromKeep);
+            tabDiff.Controls.Add(btnAddToNeverFollow);
+            tabDiff.Controls.Add(lblNeverFollowHeader);
+            tabDiff.Controls.Add(lvNeverFollow);
+            tabDiff.Controls.Add(btnRemoveFromNeverFollow);
+            tabDiff.Controls.Add(lstLog);
+            tabDiff.Location = new Point(4, 24);
+            tabDiff.Name = "tabDiff";
+            tabDiff.Size = new Size(792, 672);
+            tabDiff.TabIndex = 1;
+            tabDiff.Text = "Follow Diff";
+            // 
+            // btnLoadDiff
+            // 
+            btnLoadDiff.Location = new Point(10, 10);
+            btnLoadDiff.Name = "btnLoadDiff";
+            btnLoadDiff.Size = new Size(120, 23);
+            btnLoadDiff.TabIndex = 0;
+            btnLoadDiff.Text = "Load Diff";
+            btnLoadDiff.Click += btnLoadDiff_Click;
+            // 
+            // lblDiffStatus
+            // 
+            lblDiffStatus.Location = new Point(140, 15);
+            lblDiffStatus.Name = "lblDiffStatus";
+            lblDiffStatus.Size = new Size(640, 23);
+            lblDiffStatus.TabIndex = 1;
+            // 
+            // lvNotFollowingBack
+            // 
+            lvNotFollowingBack.CheckBoxes = true;
+            lvNotFollowingBack.FullRowSelect = true;
+            lvNotFollowingBack.Location = new Point(10, 42);
+            lvNotFollowingBack.Name = "lvNotFollowingBack";
+            lvNotFollowingBack.Size = new Size(370, 240);
+            lvNotFollowingBack.TabIndex = 2;
+            lvNotFollowingBack.UseCompatibleStateImageBehavior = false;
+            lvNotFollowingBack.View = View.Details;
+            // 
+            // btnSelectAllNotFollowingBack
+            // 
+            btnSelectAllNotFollowingBack.Location = new Point(10, 288);
+            btnSelectAllNotFollowingBack.Name = "btnSelectAllNotFollowingBack";
+            btnSelectAllNotFollowingBack.Size = new Size(100, 23);
+            btnSelectAllNotFollowingBack.TabIndex = 3;
+            btnSelectAllNotFollowingBack.Text = "Select All";
+            btnSelectAllNotFollowingBack.Click += btnSelectAllNotFollowingBack_Click;
+            // 
+            // btnUnfollowSelected
+            // 
+            btnUnfollowSelected.Location = new Point(118, 288);
+            btnUnfollowSelected.Name = "btnUnfollowSelected";
+            btnUnfollowSelected.Size = new Size(130, 23);
+            btnUnfollowSelected.TabIndex = 4;
+            btnUnfollowSelected.Text = "Unfollow Selected";
+            btnUnfollowSelected.Click += btnUnfollowSelected_Click;
+            // 
+            // btnAddToKeep
+            // 
+            btnAddToKeep.Location = new Point(256, 288);
+            btnAddToKeep.Name = "btnAddToKeep";
+            btnAddToKeep.Size = new Size(120, 23);
+            btnAddToKeep.TabIndex = 5;
+            btnAddToKeep.Text = "→ Keep List";
+            btnAddToKeep.Click += btnAddToKeep_Click;
+            // 
+            // lvNotFollowedYet
+            // 
+            lvNotFollowedYet.CheckBoxes = true;
+            lvNotFollowedYet.FullRowSelect = true;
+            lvNotFollowedYet.Location = new Point(395, 42);
+            lvNotFollowedYet.Name = "lvNotFollowedYet";
+            lvNotFollowedYet.Size = new Size(385, 240);
+            lvNotFollowedYet.TabIndex = 6;
+            lvNotFollowedYet.UseCompatibleStateImageBehavior = false;
+            lvNotFollowedYet.View = View.Details;
+            // 
+            // btnSelectAllNotFollowedYet
+            // 
+            btnSelectAllNotFollowedYet.Location = new Point(395, 288);
+            btnSelectAllNotFollowedYet.Name = "btnSelectAllNotFollowedYet";
+            btnSelectAllNotFollowedYet.Size = new Size(100, 23);
+            btnSelectAllNotFollowedYet.TabIndex = 7;
+            btnSelectAllNotFollowedYet.Text = "Select All";
+            btnSelectAllNotFollowedYet.Click += btnSelectAllNotFollowedYet_Click;
+            // 
+            // btnFollowSelected
+            // 
+            btnFollowSelected.Location = new Point(503, 288);
+            btnFollowSelected.Name = "btnFollowSelected";
+            btnFollowSelected.Size = new Size(140, 23);
+            btnFollowSelected.TabIndex = 8;
+            btnFollowSelected.Text = "Follow Selected";
+            btnFollowSelected.Click += btnFollowSelected_Click;
+            // 
+            // btnCancelBulk
+            // 
+            btnCancelBulk.Location = new Point(651, 288);
+            btnCancelBulk.Name = "btnCancelBulk";
+            btnCancelBulk.Size = new Size(80, 23);
+            btnCancelBulk.TabIndex = 9;
+            btnCancelBulk.Text = "Cancel";
+            btnCancelBulk.Click += btnCancelBulk_Click;
+            // 
+            // lblKeepListHeader
+            // 
+            lblKeepListHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblKeepListHeader.Location = new Point(10, 340);
+            lblKeepListHeader.Name = "lblKeepListHeader";
+            lblKeepListHeader.Size = new Size(350, 23);
+            lblKeepListHeader.TabIndex = 10;
+            lblKeepListHeader.Text = "Keep List (always excluded from unfollow):";
+            // 
+            // lvKeepList
+            // 
+            lvKeepList.FullRowSelect = true;
+            lvKeepList.Location = new Point(8, 370);
+            lvKeepList.Name = "lvKeepList";
+            lvKeepList.Size = new Size(580, 120);
+            lvKeepList.TabIndex = 11;
+            lvKeepList.UseCompatibleStateImageBehavior = false;
+            lvKeepList.View = View.Details;
+            // 
+            // btnRemoveFromKeep
+            // 
+            btnRemoveFromKeep.Location = new Point(600, 380);
+            btnRemoveFromKeep.Name = "btnRemoveFromKeep";
+            btnRemoveFromKeep.Size = new Size(180, 40);
+            btnRemoveFromKeep.TabIndex = 12;
+            btnRemoveFromKeep.Text = "Remove from Keep List";
+            btnRemoveFromKeep.Click += btnRemoveFromKeep_Click;
+            // 
+            // btnAddToNeverFollow
+            // 
+            btnAddToNeverFollow.BackColor = Color.FromArgb(255, 220, 220);
+            btnAddToNeverFollow.Location = new Point(118, 314);
+            btnAddToNeverFollow.Name = "btnAddToNeverFollow";
+            btnAddToNeverFollow.Size = new Size(120, 23);
+            btnAddToNeverFollow.TabIndex = 13;
+            btnAddToNeverFollow.Text = "→ Never Follow";
+            btnAddToNeverFollow.UseVisualStyleBackColor = false;
+            btnAddToNeverFollow.Click += btnAddToNeverFollow_Click;
+            // 
+            // lblNeverFollowHeader
+            // 
+            lblNeverFollowHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblNeverFollowHeader.ForeColor = Color.Firebrick;
+            lblNeverFollowHeader.Location = new Point(8, 493);
+            lblNeverFollowHeader.Name = "lblNeverFollowHeader";
+            lblNeverFollowHeader.Size = new Size(350, 23);
+            lblNeverFollowHeader.TabIndex = 14;
+            lblNeverFollowHeader.Text = "Never Follow List (crawler always skips these):";
+            // 
+            // lvNeverFollow
+            // 
+            lvNeverFollow.FullRowSelect = true;
+            lvNeverFollow.Location = new Point(8, 519);
+            lvNeverFollow.Name = "lvNeverFollow";
+            lvNeverFollow.Size = new Size(580, 90);
+            lvNeverFollow.TabIndex = 15;
+            lvNeverFollow.UseCompatibleStateImageBehavior = false;
+            lvNeverFollow.View = View.Details;
+            // 
+            // btnRemoveFromNeverFollow
+            // 
+            btnRemoveFromNeverFollow.Location = new Point(600, 544);
+            btnRemoveFromNeverFollow.Name = "btnRemoveFromNeverFollow";
+            btnRemoveFromNeverFollow.Size = new Size(170, 35);
+            btnRemoveFromNeverFollow.TabIndex = 16;
+            btnRemoveFromNeverFollow.Text = "Remove from Never Follow";
+            btnRemoveFromNeverFollow.Click += btnRemoveFromNeverFollow_Click;
+            // 
+            // lstLog
+            // 
+            lstLog.Location = new Point(8, 615);
+            lstLog.Name = "lstLog";
+            lstLog.Size = new Size(770, 49);
+            lstLog.TabIndex = 17;
+            // 
+            // tabCrawler
+            // 
+            tabCrawler.Controls.Add(lblTargetUser);
+            tabCrawler.Controls.Add(txtTargetUser);
+            tabCrawler.Controls.Add(btnValidateTarget);
+            tabCrawler.Controls.Add(btnPullCandidates);
+            tabCrawler.Controls.Add(rbSourceFollowers);
+            tabCrawler.Controls.Add(rbSourceFollowing);
+            tabCrawler.Controls.Add(chkQualityFilter);
+            tabCrawler.Controls.Add(lblMinRepos);
+            tabCrawler.Controls.Add(numMinRepos);
+            tabCrawler.Controls.Add(lblMaxRatio);
+            tabCrawler.Controls.Add(numMaxRatio);
+            tabCrawler.Controls.Add(lblQueueTarget);
+            tabCrawler.Controls.Add(numQueueTarget);
+            tabCrawler.Controls.Add(lblCandidates);
+            tabCrawler.Controls.Add(txtCandidates);
+            tabCrawler.Controls.Add(picTargetAvatar);
+            tabCrawler.Controls.Add(lblTargetName);
+            tabCrawler.Controls.Add(lblTargetFollowers);
+            tabCrawler.Controls.Add(lblTargetFollowing);
+            tabCrawler.Controls.Add(lblTargetRepos);
+            tabCrawler.Controls.Add(lnkTargetProfile);
+            tabCrawler.Controls.Add(lblTargetAssessment);
+            tabCrawler.Controls.Add(lblDailyCap);
+            tabCrawler.Controls.Add(numDailyCap);
+            tabCrawler.Controls.Add(lblMinInterval);
+            tabCrawler.Controls.Add(numMinInterval);
+            tabCrawler.Controls.Add(lblMaxInterval);
+            tabCrawler.Controls.Add(numMaxInterval);
+            tabCrawler.Controls.Add(btnStartCrawler);
+            tabCrawler.Controls.Add(btnStopCrawler);
+            tabCrawler.Controls.Add(lblCrawlerStatus);
+            tabCrawler.Controls.Add(lblNextFollowCountdown);
+            tabCrawler.Controls.Add(btnExportCandidates);
+            tabCrawler.Controls.Add(btnExportFollowLog);
+            tabCrawler.Controls.Add(lstCrawlerLog);
+            tabCrawler.Location = new Point(4, 24);
+            tabCrawler.Name = "tabCrawler";
+            tabCrawler.Size = new Size(792, 672);
+            tabCrawler.TabIndex = 2;
+            tabCrawler.Text = "Crawler";
+            // 
+            // lblTargetUser
+            // 
+            lblTargetUser.Location = new Point(10, 4);
+            lblTargetUser.Name = "lblTargetUser";
+            lblTargetUser.Size = new Size(185, 23);
+            lblTargetUser.TabIndex = 0;
+            lblTargetUser.Text = "Pull candidates from user:";
+            // 
+            // txtTargetUser
+            // 
+            txtTargetUser.Location = new Point(10, 30);
+            txtTargetUser.Name = "txtTargetUser";
+            txtTargetUser.Size = new Size(180, 23);
+            txtTargetUser.TabIndex = 1;
+            // 
+            // btnValidateTarget
+            // 
+            btnValidateTarget.Location = new Point(198, 28);
+            btnValidateTarget.Name = "btnValidateTarget";
+            btnValidateTarget.Size = new Size(65, 23);
+            btnValidateTarget.TabIndex = 2;
+            btnValidateTarget.Text = "Validate";
+            btnValidateTarget.Click += btnValidateTarget_Click;
+            // 
+            // btnPullCandidates
+            // 
+            btnPullCandidates.Location = new Point(270, 28);
+            btnPullCandidates.Name = "btnPullCandidates";
+            btnPullCandidates.Size = new Size(55, 23);
+            btnPullCandidates.TabIndex = 3;
+            btnPullCandidates.Text = "Pull";
+            btnPullCandidates.Click += btnPullCandidates_Click;
+            // 
+            // rbSourceFollowers
+            // 
+            rbSourceFollowers.Checked = true;
+            rbSourceFollowers.Location = new Point(10, 56);
+            rbSourceFollowers.Name = "rbSourceFollowers";
+            rbSourceFollowers.Size = new Size(145, 24);
+            rbSourceFollowers.TabIndex = 4;
+            rbSourceFollowers.TabStop = true;
+            rbSourceFollowers.Text = "Their followers";
+            // 
+            // rbSourceFollowing
+            // 
+            rbSourceFollowing.Location = new Point(158, 56);
+            rbSourceFollowing.Name = "rbSourceFollowing";
+            rbSourceFollowing.Size = new Size(145, 24);
+            rbSourceFollowing.TabIndex = 5;
+            rbSourceFollowing.Text = "Who they follow";
+            // 
+            // chkQualityFilter
+            // 
+            chkQualityFilter.Location = new Point(10, 78);
+            chkQualityFilter.Name = "chkQualityFilter";
+            chkQualityFilter.Size = new Size(310, 24);
+            chkQualityFilter.TabIndex = 6;
+            chkQualityFilter.Text = "Apply quality filter (1 extra API call/candidate)";
+            // 
+            // lblMinRepos
+            // 
+            lblMinRepos.Location = new Point(10, 113);
+            lblMinRepos.Name = "lblMinRepos";
+            lblMinRepos.Size = new Size(110, 23);
+            lblMinRepos.TabIndex = 7;
+            lblMinRepos.Text = "Min public repos:";
+            // 
+            // numMinRepos
+            // 
+            numMinRepos.Location = new Point(144, 106);
+            numMinRepos.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            numMinRepos.Name = "numMinRepos";
+            numMinRepos.Size = new Size(70, 23);
+            numMinRepos.TabIndex = 8;
+            numMinRepos.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // lblMaxRatio
+            // 
+            lblMaxRatio.Location = new Point(10, 136);
+            lblMaxRatio.Name = "lblMaxRatio";
+            lblMaxRatio.Size = new Size(110, 23);
+            lblMaxRatio.TabIndex = 9;
+            lblMaxRatio.Text = "Max follow ratio:";
+            // 
+            // numMaxRatio
+            // 
+            numMaxRatio.Location = new Point(144, 133);
+            numMaxRatio.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            numMaxRatio.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numMaxRatio.Name = "numMaxRatio";
+            numMaxRatio.Size = new Size(70, 23);
+            numMaxRatio.TabIndex = 10;
+            numMaxRatio.Value = new decimal(new int[] { 10, 0, 0, 0 });
+            // 
+            // lblQueueTarget
+            // 
+            lblQueueTarget.Location = new Point(8, 162);
+            lblQueueTarget.Name = "lblQueueTarget";
+            lblQueueTarget.Size = new Size(130, 23);
+            lblQueueTarget.TabIndex = 11;
+            lblQueueTarget.Text = "Stop after N queued:";
+            // 
+            // numQueueTarget
+            // 
+            numQueueTarget.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+            numQueueTarget.Location = new Point(144, 162);
+            numQueueTarget.Maximum = new decimal(new int[] { 5000, 0, 0, 0 });
+            numQueueTarget.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+            numQueueTarget.Name = "numQueueTarget";
+            numQueueTarget.Size = new Size(80, 23);
+            numQueueTarget.TabIndex = 12;
+            numQueueTarget.Value = new decimal(new int[] { 200, 0, 0, 0 });
+            // 
+            // lblCandidates
+            // 
+            lblCandidates.Location = new Point(8, 192);
+            lblCandidates.Name = "lblCandidates";
+            lblCandidates.Size = new Size(300, 23);
+            lblCandidates.TabIndex = 13;
+            lblCandidates.Text = "Candidate queue (filtered):";
+            // 
+            // txtCandidates
+            // 
+            txtCandidates.Location = new Point(10, 218);
+            txtCandidates.Multiline = true;
+            txtCandidates.Name = "txtCandidates";
+            txtCandidates.ReadOnly = true;
+            txtCandidates.ScrollBars = ScrollBars.Vertical;
+            txtCandidates.Size = new Size(300, 88);
+            txtCandidates.TabIndex = 14;
+            // 
+            // picTargetAvatar
+            // 
+            picTargetAvatar.BorderStyle = BorderStyle.FixedSingle;
+            picTargetAvatar.Location = new Point(330, 10);
+            picTargetAvatar.Name = "picTargetAvatar";
+            picTargetAvatar.Size = new Size(72, 72);
+            picTargetAvatar.SizeMode = PictureBoxSizeMode.StretchImage;
+            picTargetAvatar.TabIndex = 15;
+            picTargetAvatar.TabStop = false;
+            // 
+            // lblTargetName
+            // 
+            lblTargetName.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblTargetName.Location = new Point(412, 10);
+            lblTargetName.Name = "lblTargetName";
+            lblTargetName.Size = new Size(370, 23);
+            lblTargetName.TabIndex = 16;
+            // 
+            // lblTargetFollowers
+            // 
+            lblTargetFollowers.Location = new Point(412, 32);
+            lblTargetFollowers.Name = "lblTargetFollowers";
+            lblTargetFollowers.Size = new Size(370, 23);
+            lblTargetFollowers.TabIndex = 17;
+            // 
+            // lblTargetFollowing
+            // 
+            lblTargetFollowing.Location = new Point(412, 50);
+            lblTargetFollowing.Name = "lblTargetFollowing";
+            lblTargetFollowing.Size = new Size(370, 23);
+            lblTargetFollowing.TabIndex = 18;
+            // 
+            // lblTargetRepos
+            // 
+            lblTargetRepos.Location = new Point(412, 68);
+            lblTargetRepos.Name = "lblTargetRepos";
+            lblTargetRepos.Size = new Size(370, 23);
+            lblTargetRepos.TabIndex = 19;
+            // 
+            // lnkTargetProfile
+            // 
+            lnkTargetProfile.Location = new Point(330, 88);
+            lnkTargetProfile.Name = "lnkTargetProfile";
+            lnkTargetProfile.Size = new Size(300, 23);
+            lnkTargetProfile.TabIndex = 20;
+            lnkTargetProfile.LinkClicked += lnkTargetProfile_LinkClicked;
+            // 
+            // lblTargetAssessment
+            // 
+            lblTargetAssessment.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblTargetAssessment.Location = new Point(330, 108);
+            lblTargetAssessment.Name = "lblTargetAssessment";
+            lblTargetAssessment.Size = new Size(450, 23);
+            lblTargetAssessment.TabIndex = 21;
+            // 
+            // lblDailyCap
+            // 
+            lblDailyCap.Location = new Point(330, 138);
+            lblDailyCap.Name = "lblDailyCap";
+            lblDailyCap.Size = new Size(100, 23);
+            lblDailyCap.TabIndex = 22;
+            lblDailyCap.Text = "Daily cap:";
+            // 
+            // numDailyCap
+            // 
+            numDailyCap.Location = new Point(450, 136);
+            numDailyCap.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
+            numDailyCap.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numDailyCap.Name = "numDailyCap";
+            numDailyCap.Size = new Size(80, 23);
+            numDailyCap.TabIndex = 23;
+            numDailyCap.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            // 
+            // lblMinInterval
+            // 
+            lblMinInterval.Location = new Point(330, 164);
+            lblMinInterval.Name = "lblMinInterval";
+            lblMinInterval.Size = new Size(115, 23);
+            lblMinInterval.TabIndex = 24;
+            lblMinInterval.Text = "Min interval (min):";
+            // 
+            // numMinInterval
+            // 
+            numMinInterval.Location = new Point(450, 162);
+            numMinInterval.Maximum = new decimal(new int[] { 1440, 0, 0, 0 });
+            numMinInterval.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numMinInterval.Name = "numMinInterval";
+            numMinInterval.Size = new Size(80, 23);
+            numMinInterval.TabIndex = 25;
+            numMinInterval.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // lblMaxInterval
+            // 
+            lblMaxInterval.Location = new Point(330, 190);
+            lblMaxInterval.Name = "lblMaxInterval";
+            lblMaxInterval.Size = new Size(115, 23);
+            lblMaxInterval.TabIndex = 26;
+            lblMaxInterval.Text = "Max interval (min):";
+            // 
+            // numMaxInterval
+            // 
+            numMaxInterval.Location = new Point(450, 188);
+            numMaxInterval.Maximum = new decimal(new int[] { 1440, 0, 0, 0 });
+            numMaxInterval.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numMaxInterval.Name = "numMaxInterval";
+            numMaxInterval.Size = new Size(80, 23);
+            numMaxInterval.TabIndex = 27;
+            numMaxInterval.Value = new decimal(new int[] { 5, 0, 0, 0 });
+            // 
+            // btnStartCrawler
+            // 
+            btnStartCrawler.Location = new Point(330, 218);
+            btnStartCrawler.Name = "btnStartCrawler";
+            btnStartCrawler.Size = new Size(155, 23);
+            btnStartCrawler.TabIndex = 28;
+            btnStartCrawler.Text = "Start Follow Crawler";
+            btnStartCrawler.Click += btnStartCrawler_Click;
+            // 
+            // btnStopCrawler
+            // 
+            btnStopCrawler.Enabled = false;
+            btnStopCrawler.Location = new Point(493, 218);
+            btnStopCrawler.Name = "btnStopCrawler";
+            btnStopCrawler.Size = new Size(110, 23);
+            btnStopCrawler.TabIndex = 29;
+            btnStopCrawler.Text = "Stop Crawler";
+            btnStopCrawler.Click += btnStopCrawler_Click;
+            // 
+            // lblCrawlerStatus
+            // 
+            lblCrawlerStatus.Location = new Point(330, 250);
+            lblCrawlerStatus.Name = "lblCrawlerStatus";
+            lblCrawlerStatus.Size = new Size(450, 23);
+            lblCrawlerStatus.TabIndex = 30;
+            lblCrawlerStatus.Text = "Crawler idle.";
+            // 
+            // lblNextFollowCountdown
+            // 
+            lblNextFollowCountdown.Location = new Point(330, 270);
+            lblNextFollowCountdown.Name = "lblNextFollowCountdown";
+            lblNextFollowCountdown.Size = new Size(450, 23);
+            lblNextFollowCountdown.TabIndex = 31;
+            // 
+            // btnExportCandidates
+            // 
+            btnExportCandidates.Location = new Point(10, 318);
+            btnExportCandidates.Name = "btnExportCandidates";
+            btnExportCandidates.Size = new Size(148, 23);
+            btnExportCandidates.TabIndex = 32;
+            btnExportCandidates.Text = "Export Candidate Queue";
+            btnExportCandidates.Click += btnExportCandidates_Click;
+            // 
+            // btnExportFollowLog
+            // 
+            btnExportFollowLog.Location = new Point(164, 318);
+            btnExportFollowLog.Name = "btnExportFollowLog";
+            btnExportFollowLog.Size = new Size(145, 23);
+            btnExportFollowLog.TabIndex = 33;
+            btnExportFollowLog.Text = "Export Follow Log";
+            btnExportFollowLog.Click += btnExportFollowLog_Click;
+            // 
+            // lstCrawlerLog
+            // 
+            lstCrawlerLog.Location = new Point(10, 356);
+            lstCrawlerLog.Name = "lstCrawlerLog";
+            lstCrawlerLog.Size = new Size(770, 229);
+            lstCrawlerLog.TabIndex = 34;
+            // 
+            // tabAFB
+            // 
+            tabAFB.Controls.Add(lblAFBInterval);
+            tabAFB.Controls.Add(numAFBInterval);
+            tabAFB.Controls.Add(btnStartAutoFollowBack);
+            tabAFB.Controls.Add(btnStopAutoFollowBack);
+            tabAFB.Controls.Add(btnRunAFBNow);
+            tabAFB.Controls.Add(lblAFBStatus);
+            tabAFB.Controls.Add(lblAFBCountdown);
+            tabAFB.Controls.Add(lstAFBLog);
+            tabAFB.Location = new Point(4, 24);
+            tabAFB.Name = "tabAFB";
+            tabAFB.Size = new Size(792, 672);
+            tabAFB.TabIndex = 3;
+            tabAFB.Text = "Auto Follow-Back";
+            // 
+            // lblAFBInterval
+            // 
+            lblAFBInterval.Location = new Point(10, 12);
+            lblAFBInterval.Name = "lblAFBInterval";
+            lblAFBInterval.Size = new Size(130, 23);
+            lblAFBInterval.TabIndex = 0;
+            lblAFBInterval.Text = "Poll interval (min):";
+            // 
+            // numAFBInterval
+            // 
+            numAFBInterval.Location = new Point(148, 10);
+            numAFBInterval.Maximum = new decimal(new int[] { 1440, 0, 0, 0 });
+            numAFBInterval.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numAFBInterval.Name = "numAFBInterval";
+            numAFBInterval.Size = new Size(80, 23);
+            numAFBInterval.TabIndex = 1;
+            numAFBInterval.Value = new decimal(new int[] { 30, 0, 0, 0 });
+            // 
+            // btnStartAutoFollowBack
+            // 
+            btnStartAutoFollowBack.Location = new Point(240, 8);
+            btnStartAutoFollowBack.Name = "btnStartAutoFollowBack";
+            btnStartAutoFollowBack.Size = new Size(140, 23);
+            btnStartAutoFollowBack.TabIndex = 2;
+            btnStartAutoFollowBack.Text = "Start Auto Follow-Back";
+            btnStartAutoFollowBack.Click += btnStartAutoFollowBack_Click;
+            // 
+            // btnStopAutoFollowBack
+            // 
+            btnStopAutoFollowBack.Enabled = false;
+            btnStopAutoFollowBack.Location = new Point(388, 8);
+            btnStopAutoFollowBack.Name = "btnStopAutoFollowBack";
+            btnStopAutoFollowBack.Size = new Size(80, 23);
+            btnStopAutoFollowBack.TabIndex = 3;
+            btnStopAutoFollowBack.Text = "Stop";
+            btnStopAutoFollowBack.Click += btnStopAutoFollowBack_Click;
+            // 
+            // btnRunAFBNow
+            // 
+            btnRunAFBNow.Location = new Point(476, 8);
+            btnRunAFBNow.Name = "btnRunAFBNow";
+            btnRunAFBNow.Size = new Size(110, 23);
+            btnRunAFBNow.TabIndex = 4;
+            btnRunAFBNow.Text = "Run Once Now";
+            btnRunAFBNow.Click += btnRunAFBNow_Click;
+            // 
+            // lblAFBStatus
+            // 
+            lblAFBStatus.Location = new Point(10, 38);
+            lblAFBStatus.Name = "lblAFBStatus";
+            lblAFBStatus.Size = new Size(500, 23);
+            lblAFBStatus.TabIndex = 5;
+            lblAFBStatus.Text = "Idle.";
+            // 
+            // lblAFBCountdown
+            // 
+            lblAFBCountdown.Location = new Point(10, 58);
+            lblAFBCountdown.Name = "lblAFBCountdown";
+            lblAFBCountdown.Size = new Size(300, 23);
+            lblAFBCountdown.TabIndex = 6;
+            // 
+            // lstAFBLog
+            // 
+            lstAFBLog.Location = new Point(10, 82);
+            lstAFBLog.Name = "lstAFBLog";
+            lstAFBLog.Size = new Size(770, 469);
+            lstAFBLog.TabIndex = 7;
+            // 
+            // tabStarBack
+            // 
+            tabStarBack.Controls.Add(lblFollowersToScan);
+            tabStarBack.Controls.Add(numFollowersToScan);
+            tabStarBack.Controls.Add(lblMinStarsForStar);
+            tabStarBack.Controls.Add(numMinStarsForStar);
+            tabStarBack.Controls.Add(btnLoadStarCandidates);
+            tabStarBack.Controls.Add(btnCancelStarScan);
+            tabStarBack.Controls.Add(btnSelectAllStars);
+            tabStarBack.Controls.Add(btnStarSelected);
+            tabStarBack.Controls.Add(btnOpenStarUrl);
+            tabStarBack.Controls.Add(lblStarBackStatus);
+            tabStarBack.Controls.Add(dgvStarBack);
+            tabStarBack.Controls.Add(lstStarBackLog);
+            tabStarBack.Location = new Point(4, 24);
+            tabStarBack.Name = "tabStarBack";
+            tabStarBack.Size = new Size(792, 672);
+            tabStarBack.TabIndex = 4;
+            tabStarBack.Text = "Star-Back";
+            // 
+            // lblFollowersToScan
+            // 
+            lblFollowersToScan.Location = new Point(10, 12);
+            lblFollowersToScan.Name = "lblFollowersToScan";
+            lblFollowersToScan.Size = new Size(130, 23);
+            lblFollowersToScan.TabIndex = 0;
+            lblFollowersToScan.Text = "Followers to scan:";
+            // 
+            // numFollowersToScan
+            // 
+            numFollowersToScan.Location = new Point(148, 10);
+            numFollowersToScan.Maximum = new decimal(new int[] { 500, 0, 0, 0 });
+            numFollowersToScan.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numFollowersToScan.Name = "numFollowersToScan";
+            numFollowersToScan.Size = new Size(80, 23);
+            numFollowersToScan.TabIndex = 1;
+            numFollowersToScan.Value = new decimal(new int[] { 50, 0, 0, 0 });
+            // 
+            // lblMinStarsForStar
+            // 
+            lblMinStarsForStar.Location = new Point(240, 12);
+            lblMinStarsForStar.Name = "lblMinStarsForStar";
+            lblMinStarsForStar.Size = new Size(90, 23);
+            lblMinStarsForStar.TabIndex = 2;
+            lblMinStarsForStar.Text = "Min repo stars:";
+            // 
+            // numMinStarsForStar
+            // 
+            numMinStarsForStar.Location = new Point(334, 10);
+            numMinStarsForStar.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+            numMinStarsForStar.Name = "numMinStarsForStar";
+            numMinStarsForStar.Size = new Size(70, 23);
+            numMinStarsForStar.TabIndex = 3;
+            numMinStarsForStar.Value = new decimal(new int[] { 5, 0, 0, 0 });
+            // 
+            // btnLoadStarCandidates
+            // 
+            btnLoadStarCandidates.Location = new Point(416, 8);
+            btnLoadStarCandidates.Name = "btnLoadStarCandidates";
+            btnLoadStarCandidates.Size = new Size(130, 23);
+            btnLoadStarCandidates.TabIndex = 4;
+            btnLoadStarCandidates.Text = "Load Candidates";
+            btnLoadStarCandidates.Click += btnLoadStarCandidates_Click;
+            // 
+            // btnCancelStarScan
+            // 
+            btnCancelStarScan.Enabled = false;
+            btnCancelStarScan.Location = new Point(554, 8);
+            btnCancelStarScan.Name = "btnCancelStarScan";
+            btnCancelStarScan.Size = new Size(70, 23);
+            btnCancelStarScan.TabIndex = 5;
+            btnCancelStarScan.Text = "Cancel";
+            btnCancelStarScan.Click += btnCancelStarScan_Click;
+            // 
+            // btnSelectAllStars
+            // 
+            btnSelectAllStars.Location = new Point(632, 8);
+            btnSelectAllStars.Name = "btnSelectAllStars";
+            btnSelectAllStars.Size = new Size(90, 23);
+            btnSelectAllStars.TabIndex = 6;
+            btnSelectAllStars.Text = "Select All";
+            btnSelectAllStars.Click += btnSelectAllStars_Click;
+            // 
+            // btnStarSelected
+            // 
+            btnStarSelected.Location = new Point(730, 8);
+            btnStarSelected.Name = "btnStarSelected";
+            btnStarSelected.Size = new Size(110, 23);
+            btnStarSelected.TabIndex = 7;
+            btnStarSelected.Text = "⭐ Star Checked";
+            btnStarSelected.Click += btnStarSelected_Click;
+            // 
+            // btnOpenStarUrl
+            // 
+            btnOpenStarUrl.Location = new Point(750, 8);
+            btnOpenStarUrl.Name = "btnOpenStarUrl";
+            btnOpenStarUrl.Size = new Size(108, 23);
+            btnOpenStarUrl.TabIndex = 8;
+            btnOpenStarUrl.Text = "Open in Browser";
+            btnOpenStarUrl.Click += btnOpenStarUrl_Click;
+            // 
+            // lblStarBackStatus
+            // 
+            lblStarBackStatus.Location = new Point(10, 38);
+            lblStarBackStatus.Name = "lblStarBackStatus";
+            lblStarBackStatus.Size = new Size(760, 23);
+            lblStarBackStatus.TabIndex = 9;
+            // 
+            // dgvStarBack
+            // 
+            dgvStarBack.AllowUserToAddRows = false;
+            dgvStarBack.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvStarBack.Columns.AddRange(new DataGridViewColumn[] { dataGridViewCheckBoxColumn1, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3 });
+            dgvStarBack.Location = new Point(10, 58);
+            dgvStarBack.Name = "dgvStarBack";
+            dgvStarBack.Size = new Size(770, 390);
+            dgvStarBack.TabIndex = 10;
+            // 
+            // dataGridViewCheckBoxColumn1
+            // 
+            dataGridViewCheckBoxColumn1.Name = "dataGridViewCheckBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
+            // lstStarBackLog
+            // 
+            lstStarBackLog.Location = new Point(10, 458);
+            lstStarBackLog.Name = "lstStarBackLog";
+            lstStarBackLog.Size = new Size(770, 94);
+            lstStarBackLog.TabIndex = 11;
+            // 
+            // tabRepoHealth
+            // 
+            tabRepoHealth.Controls.Add(btnScanRepos);
+            tabRepoHealth.Controls.Add(btnOpenRepoUrl);
+            tabRepoHealth.Controls.Add(btnQuickFixTopics);
+            tabRepoHealth.Controls.Add(lblRepoHealthStatus);
+            tabRepoHealth.Controls.Add(dgvRepoHealth);
+            tabRepoHealth.Location = new Point(4, 24);
+            tabRepoHealth.Name = "tabRepoHealth";
+            tabRepoHealth.Size = new Size(792, 672);
+            tabRepoHealth.TabIndex = 5;
+            tabRepoHealth.Text = "Repo Health";
+            // 
+            // btnScanRepos
+            // 
+            btnScanRepos.Location = new Point(10, 10);
+            btnScanRepos.Name = "btnScanRepos";
+            btnScanRepos.Size = new Size(120, 23);
+            btnScanRepos.TabIndex = 0;
+            btnScanRepos.Text = "Scan My Repos";
+            btnScanRepos.Click += btnScanRepos_Click;
+            // 
+            // btnOpenRepoUrl
+            // 
+            btnOpenRepoUrl.Location = new Point(138, 10);
+            btnOpenRepoUrl.Name = "btnOpenRepoUrl";
+            btnOpenRepoUrl.Size = new Size(120, 23);
+            btnOpenRepoUrl.TabIndex = 1;
+            btnOpenRepoUrl.Text = "Open in Browser";
+            btnOpenRepoUrl.Click += btnOpenRepoUrl_Click;
+            // 
+            // btnQuickFixTopics
+            // 
+            btnQuickFixTopics.Location = new Point(266, 10);
+            btnQuickFixTopics.Name = "btnQuickFixTopics";
+            btnQuickFixTopics.Size = new Size(130, 23);
+            btnQuickFixTopics.TabIndex = 2;
+            btnQuickFixTopics.Text = "Set Topics (selected)";
+            btnQuickFixTopics.Click += btnQuickFixTopics_Click;
+            // 
+            // lblRepoHealthStatus
+            // 
+            lblRepoHealthStatus.Location = new Point(408, 15);
+            lblRepoHealthStatus.Name = "lblRepoHealthStatus";
+            lblRepoHealthStatus.Size = new Size(372, 23);
+            lblRepoHealthStatus.TabIndex = 3;
+            // 
+            // dgvRepoHealth
+            // 
+            dgvRepoHealth.AllowUserToAddRows = false;
+            dgvRepoHealth.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvRepoHealth.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn5, dataGridViewTextBoxColumn6, dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn8, dataGridViewTextBoxColumn9, dataGridViewTextBoxColumn10, dataGridViewTextBoxColumn11, dataGridViewTextBoxColumn12 });
+            dgvRepoHealth.Location = new Point(10, 40);
+            dgvRepoHealth.Name = "dgvRepoHealth";
+            dgvRepoHealth.ReadOnly = true;
+            dgvRepoHealth.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvRepoHealth.Size = new Size(770, 520);
+            dgvRepoHealth.TabIndex = 4;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            dataGridViewTextBoxColumn5.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            dataGridViewTextBoxColumn6.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            dataGridViewTextBoxColumn7.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            dataGridViewTextBoxColumn8.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            dataGridViewTextBoxColumn9.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            dataGridViewTextBoxColumn10.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            dataGridViewTextBoxColumn11.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            dataGridViewTextBoxColumn12.ReadOnly = true;
+            // 
+            // tabProfile
+            // 
+            tabProfile.Controls.Add(btnRefreshProfile);
+            tabProfile.Controls.Add(btnOpenProfileBrowser);
+            tabProfile.Controls.Add(lblProfileRefreshInterval);
+            tabProfile.Controls.Add(numProfileRefreshInterval);
+            tabProfile.Controls.Add(btnStartProfileAutoRefresh);
+            tabProfile.Controls.Add(btnStopProfileAutoRefresh);
+            tabProfile.Controls.Add(lblProfileStatus);
+            tabProfile.Controls.Add(webProfile);
+            tabProfile.Location = new Point(4, 24);
+            tabProfile.Name = "tabProfile";
+            tabProfile.Size = new Size(792, 672);
+            tabProfile.TabIndex = 6;
+            tabProfile.Text = "Profile";
+            tabProfile.Enter += tabProfile_Enter;
+            // 
+            // btnRefreshProfile
+            // 
+            btnRefreshProfile.Location = new Point(10, 10);
+            btnRefreshProfile.Name = "btnRefreshProfile";
+            btnRefreshProfile.Size = new Size(90, 23);
+            btnRefreshProfile.TabIndex = 0;
+            btnRefreshProfile.Text = "Refresh";
+            btnRefreshProfile.Click += btnRefreshProfile_Click;
+            // 
+            // btnOpenProfileBrowser
+            // 
+            btnOpenProfileBrowser.Location = new Point(108, 10);
+            btnOpenProfileBrowser.Name = "btnOpenProfileBrowser";
+            btnOpenProfileBrowser.Size = new Size(120, 23);
+            btnOpenProfileBrowser.TabIndex = 1;
+            btnOpenProfileBrowser.Text = "Open in Browser";
+            btnOpenProfileBrowser.Click += btnOpenProfileBrowser_Click;
+            // 
+            // lblProfileRefreshInterval
+            // 
+            lblProfileRefreshInterval.Location = new Point(240, 13);
+            lblProfileRefreshInterval.Name = "lblProfileRefreshInterval";
+            lblProfileRefreshInterval.Size = new Size(110, 23);
+            lblProfileRefreshInterval.TabIndex = 2;
+            lblProfileRefreshInterval.Text = "Auto-refresh (sec):";
+            // 
+            // numProfileRefreshInterval
+            // 
+            numProfileRefreshInterval.Location = new Point(354, 10);
+            numProfileRefreshInterval.Maximum = new decimal(new int[] { 3600, 0, 0, 0 });
+            numProfileRefreshInterval.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numProfileRefreshInterval.Name = "numProfileRefreshInterval";
+            numProfileRefreshInterval.Size = new Size(70, 23);
+            numProfileRefreshInterval.TabIndex = 3;
+            numProfileRefreshInterval.Value = new decimal(new int[] { 30, 0, 0, 0 });
+            // 
+            // btnStartProfileAutoRefresh
+            // 
+            btnStartProfileAutoRefresh.Location = new Point(432, 8);
+            btnStartProfileAutoRefresh.Name = "btnStartProfileAutoRefresh";
+            btnStartProfileAutoRefresh.Size = new Size(110, 23);
+            btnStartProfileAutoRefresh.TabIndex = 4;
+            btnStartProfileAutoRefresh.Text = "Start Auto-Refresh";
+            btnStartProfileAutoRefresh.Click += btnStartProfileAutoRefresh_Click;
+            // 
+            // btnStopProfileAutoRefresh
+            // 
+            btnStopProfileAutoRefresh.Enabled = false;
+            btnStopProfileAutoRefresh.Location = new Point(550, 8);
+            btnStopProfileAutoRefresh.Name = "btnStopProfileAutoRefresh";
+            btnStopProfileAutoRefresh.Size = new Size(60, 23);
+            btnStopProfileAutoRefresh.TabIndex = 5;
+            btnStopProfileAutoRefresh.Text = "Stop";
+            btnStopProfileAutoRefresh.Click += btnStopProfileAutoRefresh_Click;
+            // 
+            // lblProfileStatus
+            // 
+            lblProfileStatus.Location = new Point(622, 13);
+            lblProfileStatus.Name = "lblProfileStatus";
+            lblProfileStatus.Size = new Size(158, 23);
+            lblProfileStatus.TabIndex = 6;
+            // 
+            // webProfile
+            // 
+            webProfile.Location = new Point(10, 60);
+            webProfile.Name = "webProfile";
+            webProfile.ScriptErrorsSuppressed = true;
+            webProfile.Size = new Size(770, 500);
+            webProfile.TabIndex = 7;
+            // 
+            // tabAchievements
+            // 
+            tabAchievements.Controls.Add(btnCheckAchievements);
+            tabAchievements.Controls.Add(lblAchievementStatus);
+            tabAchievements.Controls.Add(dgvAchievements);
+            tabAchievements.Controls.Add(btnOpenAchievementUrl);
+            tabAchievements.Controls.Add(btnHowToUnlock);
+            tabAchievements.Location = new Point(4, 24);
+            tabAchievements.Name = "tabAchievements";
+            tabAchievements.Size = new Size(792, 672);
+            tabAchievements.TabIndex = 7;
+            tabAchievements.Text = "Achievements";
+            // 
+            // btnCheckAchievements
+            // 
+            btnCheckAchievements.Location = new Point(10, 10);
+            btnCheckAchievements.Name = "btnCheckAchievements";
+            btnCheckAchievements.Size = new Size(160, 23);
+            btnCheckAchievements.TabIndex = 0;
+            btnCheckAchievements.Text = "Check My Achievements";
+            btnCheckAchievements.Click += btnCheckAchievements_Click;
+            // 
+            // lblAchievementStatus
+            // 
+            lblAchievementStatus.Location = new Point(180, 14);
+            lblAchievementStatus.Name = "lblAchievementStatus";
+            lblAchievementStatus.Size = new Size(580, 23);
+            lblAchievementStatus.TabIndex = 1;
+            lblAchievementStatus.Text = "Click Check to load your achievement progress.";
+            // 
+            // dgvAchievements
+            // 
+            dgvAchievements.AllowUserToAddRows = false;
+            dgvAchievements.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvAchievements.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn13, dataGridViewTextBoxColumn14, dataGridViewTextBoxColumn15, dataGridViewTextBoxColumn16, dataGridViewTextBoxColumn17, dataGridViewTextBoxColumn18, dataGridViewTextBoxColumn19 });
+            dgvAchievements.Location = new Point(10, 40);
+            dgvAchievements.Name = "dgvAchievements";
+            dgvAchievements.ReadOnly = true;
+            dgvAchievements.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvAchievements.Size = new Size(770, 440);
+            dgvAchievements.TabIndex = 2;
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            dataGridViewTextBoxColumn13.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn14
+            // 
+            dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
+            dataGridViewTextBoxColumn14.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn15
+            // 
+            dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
+            dataGridViewTextBoxColumn15.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn16
+            // 
+            dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
+            dataGridViewTextBoxColumn16.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn17
+            // 
+            dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
+            dataGridViewTextBoxColumn17.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn18
+            // 
+            dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
+            dataGridViewTextBoxColumn18.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn19
+            // 
+            dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
+            dataGridViewTextBoxColumn19.ReadOnly = true;
+            // 
+            // btnOpenAchievementUrl
+            // 
+            btnOpenAchievementUrl.Location = new Point(10, 490);
+            btnOpenAchievementUrl.Name = "btnOpenAchievementUrl";
+            btnOpenAchievementUrl.Size = new Size(160, 23);
+            btnOpenAchievementUrl.TabIndex = 3;
+            btnOpenAchievementUrl.Text = "Open in Browser";
+            btnOpenAchievementUrl.Click += btnOpenAchievementUrl_Click;
+            // 
+            // btnHowToUnlock
+            // 
+            btnHowToUnlock.Location = new Point(178, 490);
+            btnHowToUnlock.Name = "btnHowToUnlock";
+            btnHowToUnlock.Size = new Size(160, 23);
+            btnHowToUnlock.TabIndex = 4;
+            btnHowToUnlock.Text = "How To Unlock";
+            btnHowToUnlock.Click += btnHowToUnlock_Click;
+            // 
+            // Form1
+            // 
+            ClientSize = new Size(800, 700);
+            Controls.Add(tabControl1);
+            Name = "Form1";
+            Text = "GitHub Manager";
+            Load += Form1_Load;
+            tabControl1.ResumeLayout(false);
+            tabOverview.ResumeLayout(false);
+            tabDiff.ResumeLayout(false);
+            tabCrawler.ResumeLayout(false);
+            tabCrawler.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numMinRepos).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numMaxRatio).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numQueueTarget).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picTargetAvatar).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numDailyCap).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numMinInterval).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numMaxInterval).EndInit();
+            tabAFB.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)numAFBInterval).EndInit();
+            tabStarBack.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)numFollowersToScan).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numMinStarsForStar).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvStarBack).EndInit();
+            tabRepoHealth.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvRepoHealth).EndInit();
+            tabProfile.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)numProfileRefreshInterval).EndInit();
+            tabAchievements.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvAchievements).EndInit();
+            ResumeLayout(false);
         }
 
         // Overview
@@ -544,6 +1336,9 @@ namespace GithubManager
         private System.Windows.Forms.Button btnLoadDiff, btnUnfollowSelected, btnFollowSelected, btnCancelBulk;
         private System.Windows.Forms.Button btnSelectAllNotFollowingBack, btnSelectAllNotFollowedYet;
         private System.Windows.Forms.Button btnAddToKeep, btnRemoveFromKeep;
+        private System.Windows.Forms.Button btnAddToNeverFollow, btnRemoveFromNeverFollow;
+        private System.Windows.Forms.Label lblNeverFollowHeader;
+        private System.Windows.Forms.ListView lvNeverFollow;
         private System.Windows.Forms.Label lblDiffStatus, lblKeepListHeader;
         private System.Windows.Forms.ListView lvNotFollowingBack, lvNotFollowedYet, lvKeepList;
         private System.Windows.Forms.ListBox lstLog;
@@ -593,5 +1388,25 @@ namespace GithubManager
         private System.Windows.Forms.Button btnCheckAchievements, btnOpenAchievementUrl, btnHowToUnlock;
         private System.Windows.Forms.Label lblAchievementStatus;
         private System.Windows.Forms.DataGridView dgvAchievements;
+        private DataGridViewCheckBoxColumn dataGridViewCheckBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn19;
     }
 }
