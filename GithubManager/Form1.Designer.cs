@@ -39,6 +39,7 @@ namespace GithubManager
             lblNeverFollowHeader = new Label();
             lvNeverFollow = new ListView();
             btnRemoveFromNeverFollow = new Button();
+            btnImportNeverFollow = new Button();
             lstLog = new ListBox();
             tabCrawler = new TabPage();
             lblTargetUser = new Label();
@@ -97,11 +98,11 @@ namespace GithubManager
             btnOpenStarUrl = new Button();
             lblStarBackStatus = new Label();
             dgvStarBack = new DataGridView();
+            lstStarBackLog = new ListBox();
             dataGridViewCheckBoxColumn1 = new DataGridViewCheckBoxColumn();
             dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
-            lstStarBackLog = new ListBox();
             tabRepoHealth = new TabPage();
             btnScanRepos = new Button();
             btnOpenRepoUrl = new Button();
@@ -130,6 +131,8 @@ namespace GithubManager
             btnCheckAchievements = new Button();
             lblAchievementStatus = new Label();
             dgvAchievements = new DataGridView();
+            btnOpenAchievementUrl = new Button();
+            btnHowToUnlock = new Button();
             dataGridViewTextBoxColumn13 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn14 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn15 = new DataGridViewTextBoxColumn();
@@ -137,8 +140,6 @@ namespace GithubManager
             dataGridViewTextBoxColumn17 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn18 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn19 = new DataGridViewTextBoxColumn();
-            btnOpenAchievementUrl = new Button();
-            btnHowToUnlock = new Button();
             tabControl1.SuspendLayout();
             tabOverview.SuspendLayout();
             tabDiff.SuspendLayout();
@@ -264,6 +265,7 @@ namespace GithubManager
             tabDiff.Controls.Add(lblNeverFollowHeader);
             tabDiff.Controls.Add(lvNeverFollow);
             tabDiff.Controls.Add(btnRemoveFromNeverFollow);
+            tabDiff.Controls.Add(btnImportNeverFollow);
             tabDiff.Controls.Add(lstLog);
             tabDiff.Location = new Point(4, 24);
             tabDiff.Name = "tabDiff";
@@ -366,7 +368,7 @@ namespace GithubManager
             // lblKeepListHeader
             // 
             lblKeepListHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblKeepListHeader.Location = new Point(10, 340);
+            lblKeepListHeader.Location = new Point(10, 344);
             lblKeepListHeader.Name = "lblKeepListHeader";
             lblKeepListHeader.Size = new Size(350, 23);
             lblKeepListHeader.TabIndex = 10;
@@ -375,7 +377,7 @@ namespace GithubManager
             // lvKeepList
             // 
             lvKeepList.FullRowSelect = true;
-            lvKeepList.Location = new Point(8, 370);
+            lvKeepList.Location = new Point(10, 370);
             lvKeepList.Name = "lvKeepList";
             lvKeepList.Size = new Size(580, 120);
             lvKeepList.TabIndex = 11;
@@ -384,7 +386,7 @@ namespace GithubManager
             // 
             // btnRemoveFromKeep
             // 
-            btnRemoveFromKeep.Location = new Point(600, 380);
+            btnRemoveFromKeep.Location = new Point(596, 405);
             btnRemoveFromKeep.Name = "btnRemoveFromKeep";
             btnRemoveFromKeep.Size = new Size(180, 40);
             btnRemoveFromKeep.TabIndex = 12;
@@ -396,7 +398,7 @@ namespace GithubManager
             btnAddToNeverFollow.BackColor = Color.FromArgb(255, 220, 220);
             btnAddToNeverFollow.Location = new Point(118, 314);
             btnAddToNeverFollow.Name = "btnAddToNeverFollow";
-            btnAddToNeverFollow.Size = new Size(120, 23);
+            btnAddToNeverFollow.Size = new Size(130, 23);
             btnAddToNeverFollow.TabIndex = 13;
             btnAddToNeverFollow.Text = "→ Never Follow";
             btnAddToNeverFollow.UseVisualStyleBackColor = false;
@@ -406,7 +408,7 @@ namespace GithubManager
             // 
             lblNeverFollowHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblNeverFollowHeader.ForeColor = Color.Firebrick;
-            lblNeverFollowHeader.Location = new Point(8, 493);
+            lblNeverFollowHeader.Location = new Point(10, 493);
             lblNeverFollowHeader.Name = "lblNeverFollowHeader";
             lblNeverFollowHeader.Size = new Size(350, 23);
             lblNeverFollowHeader.TabIndex = 14;
@@ -415,7 +417,7 @@ namespace GithubManager
             // lvNeverFollow
             // 
             lvNeverFollow.FullRowSelect = true;
-            lvNeverFollow.Location = new Point(8, 519);
+            lvNeverFollow.Location = new Point(14, 519);
             lvNeverFollow.Name = "lvNeverFollow";
             lvNeverFollow.Size = new Size(580, 90);
             lvNeverFollow.TabIndex = 15;
@@ -424,19 +426,28 @@ namespace GithubManager
             // 
             // btnRemoveFromNeverFollow
             // 
-            btnRemoveFromNeverFollow.Location = new Point(600, 544);
+            btnRemoveFromNeverFollow.Location = new Point(600, 519);
             btnRemoveFromNeverFollow.Name = "btnRemoveFromNeverFollow";
             btnRemoveFromNeverFollow.Size = new Size(170, 35);
             btnRemoveFromNeverFollow.TabIndex = 16;
             btnRemoveFromNeverFollow.Text = "Remove from Never Follow";
             btnRemoveFromNeverFollow.Click += btnRemoveFromNeverFollow_Click;
             // 
+            // btnImportNeverFollow
+            // 
+            btnImportNeverFollow.Location = new Point(600, 574);
+            btnImportNeverFollow.Name = "btnImportNeverFollow";
+            btnImportNeverFollow.Size = new Size(170, 35);
+            btnImportNeverFollow.TabIndex = 17;
+            btnImportNeverFollow.Text = "Import from .txt";
+            btnImportNeverFollow.Click += btnImportNeverFollow_Click;
+            // 
             // lstLog
             // 
-            lstLog.Location = new Point(8, 615);
+            lstLog.Location = new Point(10, 615);
             lstLog.Name = "lstLog";
             lstLog.Size = new Size(770, 49);
-            lstLog.TabIndex = 17;
+            lstLog.TabIndex = 18;
             // 
             // tabCrawler
             // 
@@ -483,7 +494,7 @@ namespace GithubManager
             // 
             // lblTargetUser
             // 
-            lblTargetUser.Location = new Point(10, 4);
+            lblTargetUser.Location = new Point(8, 2);
             lblTargetUser.Name = "lblTargetUser";
             lblTargetUser.Size = new Size(185, 23);
             lblTargetUser.TabIndex = 0;
@@ -491,7 +502,7 @@ namespace GithubManager
             // 
             // txtTargetUser
             // 
-            txtTargetUser.Location = new Point(10, 30);
+            txtTargetUser.Location = new Point(8, 28);
             txtTargetUser.Name = "txtTargetUser";
             txtTargetUser.Size = new Size(180, 23);
             txtTargetUser.TabIndex = 1;
@@ -542,7 +553,7 @@ namespace GithubManager
             // 
             // lblMinRepos
             // 
-            lblMinRepos.Location = new Point(10, 113);
+            lblMinRepos.Location = new Point(10, 108);
             lblMinRepos.Name = "lblMinRepos";
             lblMinRepos.Size = new Size(110, 23);
             lblMinRepos.TabIndex = 7;
@@ -550,7 +561,7 @@ namespace GithubManager
             // 
             // numMinRepos
             // 
-            numMinRepos.Location = new Point(144, 106);
+            numMinRepos.Location = new Point(148, 102);
             numMinRepos.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             numMinRepos.Name = "numMinRepos";
             numMinRepos.Size = new Size(70, 23);
@@ -559,7 +570,7 @@ namespace GithubManager
             // 
             // lblMaxRatio
             // 
-            lblMaxRatio.Location = new Point(10, 136);
+            lblMaxRatio.Location = new Point(12, 133);
             lblMaxRatio.Name = "lblMaxRatio";
             lblMaxRatio.Size = new Size(110, 23);
             lblMaxRatio.TabIndex = 9;
@@ -567,7 +578,7 @@ namespace GithubManager
             // 
             // numMaxRatio
             // 
-            numMaxRatio.Location = new Point(144, 133);
+            numMaxRatio.Location = new Point(148, 131);
             numMaxRatio.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             numMaxRatio.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numMaxRatio.Name = "numMaxRatio";
@@ -577,7 +588,7 @@ namespace GithubManager
             // 
             // lblQueueTarget
             // 
-            lblQueueTarget.Location = new Point(8, 162);
+            lblQueueTarget.Location = new Point(12, 162);
             lblQueueTarget.Name = "lblQueueTarget";
             lblQueueTarget.Size = new Size(130, 23);
             lblQueueTarget.TabIndex = 11;
@@ -586,7 +597,7 @@ namespace GithubManager
             // numQueueTarget
             // 
             numQueueTarget.Increment = new decimal(new int[] { 10, 0, 0, 0 });
-            numQueueTarget.Location = new Point(144, 162);
+            numQueueTarget.Location = new Point(148, 160);
             numQueueTarget.Maximum = new decimal(new int[] { 5000, 0, 0, 0 });
             numQueueTarget.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
             numQueueTarget.Name = "numQueueTarget";
@@ -596,7 +607,7 @@ namespace GithubManager
             // 
             // lblCandidates
             // 
-            lblCandidates.Location = new Point(8, 192);
+            lblCandidates.Location = new Point(10, 188);
             lblCandidates.Name = "lblCandidates";
             lblCandidates.Size = new Size(300, 23);
             lblCandidates.TabIndex = 13;
@@ -604,7 +615,7 @@ namespace GithubManager
             // 
             // txtCandidates
             // 
-            txtCandidates.Location = new Point(10, 218);
+            txtCandidates.Location = new Point(10, 214);
             txtCandidates.Multiline = true;
             txtCandidates.Name = "txtCandidates";
             txtCandidates.ReadOnly = true;
@@ -615,7 +626,7 @@ namespace GithubManager
             // picTargetAvatar
             // 
             picTargetAvatar.BorderStyle = BorderStyle.FixedSingle;
-            picTargetAvatar.Location = new Point(330, 10);
+            picTargetAvatar.Location = new Point(331, 3);
             picTargetAvatar.Name = "picTargetAvatar";
             picTargetAvatar.Size = new Size(72, 72);
             picTargetAvatar.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -669,7 +680,7 @@ namespace GithubManager
             // 
             // lblDailyCap
             // 
-            lblDailyCap.Location = new Point(330, 138);
+            lblDailyCap.Location = new Point(332, 138);
             lblDailyCap.Name = "lblDailyCap";
             lblDailyCap.Size = new Size(100, 23);
             lblDailyCap.TabIndex = 22;
@@ -687,7 +698,7 @@ namespace GithubManager
             // 
             // lblMinInterval
             // 
-            lblMinInterval.Location = new Point(330, 164);
+            lblMinInterval.Location = new Point(330, 172);
             lblMinInterval.Name = "lblMinInterval";
             lblMinInterval.Size = new Size(115, 23);
             lblMinInterval.TabIndex = 24;
@@ -695,7 +706,7 @@ namespace GithubManager
             // 
             // numMinInterval
             // 
-            numMinInterval.Location = new Point(450, 162);
+            numMinInterval.Location = new Point(450, 170);
             numMinInterval.Maximum = new decimal(new int[] { 1440, 0, 0, 0 });
             numMinInterval.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numMinInterval.Name = "numMinInterval";
@@ -705,7 +716,7 @@ namespace GithubManager
             // 
             // lblMaxInterval
             // 
-            lblMaxInterval.Location = new Point(330, 190);
+            lblMaxInterval.Location = new Point(330, 201);
             lblMaxInterval.Name = "lblMaxInterval";
             lblMaxInterval.Size = new Size(115, 23);
             lblMaxInterval.TabIndex = 26;
@@ -713,7 +724,7 @@ namespace GithubManager
             // 
             // numMaxInterval
             // 
-            numMaxInterval.Location = new Point(450, 188);
+            numMaxInterval.Location = new Point(450, 199);
             numMaxInterval.Maximum = new decimal(new int[] { 1440, 0, 0, 0 });
             numMaxInterval.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numMaxInterval.Name = "numMaxInterval";
@@ -723,7 +734,7 @@ namespace GithubManager
             // 
             // btnStartCrawler
             // 
-            btnStartCrawler.Location = new Point(330, 218);
+            btnStartCrawler.Location = new Point(330, 244);
             btnStartCrawler.Name = "btnStartCrawler";
             btnStartCrawler.Size = new Size(155, 23);
             btnStartCrawler.TabIndex = 28;
@@ -733,7 +744,7 @@ namespace GithubManager
             // btnStopCrawler
             // 
             btnStopCrawler.Enabled = false;
-            btnStopCrawler.Location = new Point(493, 218);
+            btnStopCrawler.Location = new Point(491, 244);
             btnStopCrawler.Name = "btnStopCrawler";
             btnStopCrawler.Size = new Size(110, 23);
             btnStopCrawler.TabIndex = 29;
@@ -742,7 +753,7 @@ namespace GithubManager
             // 
             // lblCrawlerStatus
             // 
-            lblCrawlerStatus.Location = new Point(330, 250);
+            lblCrawlerStatus.Location = new Point(332, 270);
             lblCrawlerStatus.Name = "lblCrawlerStatus";
             lblCrawlerStatus.Size = new Size(450, 23);
             lblCrawlerStatus.TabIndex = 30;
@@ -757,7 +768,7 @@ namespace GithubManager
             // 
             // btnExportCandidates
             // 
-            btnExportCandidates.Location = new Point(10, 318);
+            btnExportCandidates.Location = new Point(10, 308);
             btnExportCandidates.Name = "btnExportCandidates";
             btnExportCandidates.Size = new Size(148, 23);
             btnExportCandidates.TabIndex = 32;
@@ -766,7 +777,7 @@ namespace GithubManager
             // 
             // btnExportFollowLog
             // 
-            btnExportFollowLog.Location = new Point(164, 318);
+            btnExportFollowLog.Location = new Point(165, 308);
             btnExportFollowLog.Name = "btnExportFollowLog";
             btnExportFollowLog.Size = new Size(145, 23);
             btnExportFollowLog.TabIndex = 33;
@@ -775,7 +786,7 @@ namespace GithubManager
             // 
             // lstCrawlerLog
             // 
-            lstCrawlerLog.Location = new Point(10, 356);
+            lstCrawlerLog.Location = new Point(10, 346);
             lstCrawlerLog.Name = "lstCrawlerLog";
             lstCrawlerLog.Size = new Size(770, 229);
             lstCrawlerLog.TabIndex = 34;
@@ -977,10 +988,17 @@ namespace GithubManager
             dgvStarBack.AllowUserToAddRows = false;
             dgvStarBack.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvStarBack.Columns.AddRange(new DataGridViewColumn[] { dataGridViewCheckBoxColumn1, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3 });
-            dgvStarBack.Location = new Point(10, 58);
+            dgvStarBack.Location = new Point(10, 53);
             dgvStarBack.Name = "dgvStarBack";
-            dgvStarBack.Size = new Size(770, 390);
+            dgvStarBack.Size = new Size(770, 395);
             dgvStarBack.TabIndex = 10;
+            // 
+            // lstStarBackLog
+            // 
+            lstStarBackLog.Location = new Point(10, 458);
+            lstStarBackLog.Name = "lstStarBackLog";
+            lstStarBackLog.Size = new Size(770, 94);
+            lstStarBackLog.TabIndex = 11;
             // 
             // dataGridViewCheckBoxColumn1
             // 
@@ -998,13 +1016,6 @@ namespace GithubManager
             // 
             dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             // 
-            // lstStarBackLog
-            // 
-            lstStarBackLog.Location = new Point(10, 458);
-            lstStarBackLog.Name = "lstStarBackLog";
-            lstStarBackLog.Size = new Size(770, 94);
-            lstStarBackLog.TabIndex = 11;
-            // 
             // tabRepoHealth
             // 
             tabRepoHealth.Controls.Add(btnScanRepos);
@@ -1014,7 +1025,7 @@ namespace GithubManager
             tabRepoHealth.Controls.Add(dgvRepoHealth);
             tabRepoHealth.Location = new Point(4, 24);
             tabRepoHealth.Name = "tabRepoHealth";
-            tabRepoHealth.Size = new Size(792, 672);
+            tabRepoHealth.Size = new Size(192, 72);
             tabRepoHealth.TabIndex = 5;
             tabRepoHealth.Text = "Repo Health";
             // 
@@ -1121,7 +1132,7 @@ namespace GithubManager
             tabProfile.Controls.Add(webProfile);
             tabProfile.Location = new Point(4, 24);
             tabProfile.Name = "tabProfile";
-            tabProfile.Size = new Size(792, 672);
+            tabProfile.Size = new Size(192, 72);
             tabProfile.TabIndex = 6;
             tabProfile.Text = "Profile";
             tabProfile.Enter += tabProfile_Enter;
@@ -1205,7 +1216,7 @@ namespace GithubManager
             tabAchievements.Controls.Add(btnHowToUnlock);
             tabAchievements.Location = new Point(4, 24);
             tabAchievements.Name = "tabAchievements";
-            tabAchievements.Size = new Size(792, 672);
+            tabAchievements.Size = new Size(192, 72);
             tabAchievements.TabIndex = 7;
             tabAchievements.Text = "Achievements";
             // 
@@ -1237,6 +1248,24 @@ namespace GithubManager
             dgvAchievements.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvAchievements.Size = new Size(770, 440);
             dgvAchievements.TabIndex = 2;
+            // 
+            // btnOpenAchievementUrl
+            // 
+            btnOpenAchievementUrl.Location = new Point(10, 490);
+            btnOpenAchievementUrl.Name = "btnOpenAchievementUrl";
+            btnOpenAchievementUrl.Size = new Size(160, 23);
+            btnOpenAchievementUrl.TabIndex = 3;
+            btnOpenAchievementUrl.Text = "Open in Browser";
+            btnOpenAchievementUrl.Click += btnOpenAchievementUrl_Click;
+            // 
+            // btnHowToUnlock
+            // 
+            btnHowToUnlock.Location = new Point(178, 490);
+            btnHowToUnlock.Name = "btnHowToUnlock";
+            btnHowToUnlock.Size = new Size(160, 23);
+            btnHowToUnlock.TabIndex = 4;
+            btnHowToUnlock.Text = "How To Unlock";
+            btnHowToUnlock.Click += btnHowToUnlock_Click;
             // 
             // dataGridViewTextBoxColumn13
             // 
@@ -1272,24 +1301,6 @@ namespace GithubManager
             // 
             dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
             dataGridViewTextBoxColumn19.ReadOnly = true;
-            // 
-            // btnOpenAchievementUrl
-            // 
-            btnOpenAchievementUrl.Location = new Point(10, 490);
-            btnOpenAchievementUrl.Name = "btnOpenAchievementUrl";
-            btnOpenAchievementUrl.Size = new Size(160, 23);
-            btnOpenAchievementUrl.TabIndex = 3;
-            btnOpenAchievementUrl.Text = "Open in Browser";
-            btnOpenAchievementUrl.Click += btnOpenAchievementUrl_Click;
-            // 
-            // btnHowToUnlock
-            // 
-            btnHowToUnlock.Location = new Point(178, 490);
-            btnHowToUnlock.Name = "btnHowToUnlock";
-            btnHowToUnlock.Size = new Size(160, 23);
-            btnHowToUnlock.TabIndex = 4;
-            btnHowToUnlock.Text = "How To Unlock";
-            btnHowToUnlock.Click += btnHowToUnlock_Click;
             // 
             // Form1
             // 
@@ -1336,7 +1347,7 @@ namespace GithubManager
         private System.Windows.Forms.Button btnLoadDiff, btnUnfollowSelected, btnFollowSelected, btnCancelBulk;
         private System.Windows.Forms.Button btnSelectAllNotFollowingBack, btnSelectAllNotFollowedYet;
         private System.Windows.Forms.Button btnAddToKeep, btnRemoveFromKeep;
-        private System.Windows.Forms.Button btnAddToNeverFollow, btnRemoveFromNeverFollow;
+        private System.Windows.Forms.Button btnAddToNeverFollow, btnRemoveFromNeverFollow, btnImportNeverFollow;
         private System.Windows.Forms.Label lblNeverFollowHeader;
         private System.Windows.Forms.ListView lvNeverFollow;
         private System.Windows.Forms.Label lblDiffStatus, lblKeepListHeader;

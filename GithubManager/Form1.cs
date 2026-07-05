@@ -336,6 +336,35 @@ namespace GithubManager
             }
         }
 
+        private void btnImportNeverFollow_Click(object sender, EventArgs e)
+        {
+            using var dlg = new System.Windows.Forms.OpenFileDialog
+            {
+                Title = "Import Never Follow List",
+                Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+            };
+
+            if (dlg.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+
+            var lines = File.ReadAllLines(dlg.FileName)
+                .Select(l => l.Trim())
+                .Where(l => !string.IsNullOrEmpty(l))
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+
+            int added = 0;
+            foreach (var login in lines)
+            {
+                if (_neverFollow.Contains(login)) continue;
+                _neverFollow.Add(login);
+                lvNeverFollow.Items.Add(new System.Windows.Forms.ListViewItem(login));
+                added++;
+            }
+
+            MessageBox.Show($"Imported {added} new entries ({lines.Count - added} already existed).");
+        }
+
         private async void btnUnfollowSelected_Click(object sender, EventArgs e)
         {
             var selected = lvNotFollowingBack.Items.Cast<ListViewItem>()

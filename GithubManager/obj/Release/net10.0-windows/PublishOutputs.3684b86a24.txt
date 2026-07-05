@@ -1,0 +1,6 @@
+C:\Users\Luck\Desktop\GitHubManager\GithubManager.exe
+C:\Users\Luck\Desktop\GitHubManager\GithubManager.dll
+C:\Users\Luck\Desktop\GitHubManager\GithubManager.deps.json
+C:\Users\Luck\Desktop\GitHubManager\GithubManager.runtimeconfig.json
+C:\Users\Luck\Desktop\GitHubManager\GithubManager.pdb
+C:\Users\Luck\Desktop\GitHubManager\Octokit.dll
