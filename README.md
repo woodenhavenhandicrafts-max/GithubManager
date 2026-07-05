@@ -16,7 +16,7 @@ A personal GitHub social management desktop application built in **C# WinForms (
 - Sortable **Following Since** column — click to sort by days, see who's been ignoring you longest
 - Bulk follow and unfollow with throttled, rate-limit-safe execution
 - **Keep List** — permanently protect accounts from ever appearing in your unfollow list
-- **Never Follow List** — blacklist accounts the crawler will always skip; auto-unfollows on add
+- **Never Follow List** — blacklist accounts the crawler will always skip; auto-unfollows on add; import from `.txt` file
 - Deduplication — no duplicate entries across paginated API results
 - Full operation log with cancel support
 
